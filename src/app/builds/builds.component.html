@@ -1,0 +1,13 @@
+<!-- builds.component.html -->
+<div class="build-page">
+    <h1>PC Build</h1>
+    <h2>Search Term: {{ searchTerm }}</h2>
+  
+    <div class="pc-parts">
+      <div *ngFor="let part of pcParts" class="pc-part-box">
+        <h3 class="part-name">{{ part.name }}</h3>
+        <p class="part-description">{{ part.description }}</p>
+      </div>
+    </div>
+  </div>
+  

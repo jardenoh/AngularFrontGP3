@@ -1,0 +1,85 @@
+/* Navbar styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Full width */
+    height: 60px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #000000 !important; /* Solid Black */
+    border-bottom: 1px solid #FFA500; /* Thinner Orange bottom line */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
+  }
+  
+  /* Override Material's default toolbar background */
+  :host ::ng-deep .mat-toolbar {
+    background-color: #000000 !important; /* Solid Black */
+    color: white !important;
+    border-bottom: 1px solid #FFA500; /* Change to 1px for thinner line */
+    box-shadow: none !important;
+  }
+  
+  /* Navbar logo styles */
+  .logo {
+    color: white;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  /* Navigation buttons container */
+  .nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-grow: 1;
+    margin: 0 auto;
+  }
+  
+  /* 🌟 Button Styling with Black Background and Orange Accent */
+  .nav-buttons button {
+    font-size: 1rem;
+    padding: 0.8em 2em;
+    background-color: #000; /* Black background */
+    border: 1px solid #FFA500; /* Even thinner orange border */
+    border-radius: 1em; /* Rounded corners */
+    color: #fff;
+    font-weight: bolder;
+    transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s; /* Smooth transition */
+    box-shadow: -5px 5px 0px 0px #FFA500; /* Orange shadow */
+  }
+  
+  /* 🌟 Hover Effect with Orange Glow */
+  .nav-buttons button:hover {
+    transform: translate(5px, -5px); /* Button moves on hover */
+    box-shadow: -5px 5px 10px 0px #FFA500; /* Glowing orange effect */
+  }
+  
+  /* Login button styles */
+  .login-btn {
+    margin-left: auto;
+    color: white !important;
+    font-weight: 600;
+    border-radius: 1em; /* Matching rounded corners */
+    background-color: #000 !important; /* Black background */
+    padding: 0.8em 2em; /* Same padding as buttons */
+    font-size: 1rem;
+    border: 1px solid #FFA500; /* Even thinner orange border */
+    transition: cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s;
+    box-shadow: -5px 5px 0px 0px #FFA500; /* Orange shadow */
+  }
+  
+  .login-btn:hover {
+    transform: translate(5px, -5px); /* Button moves on hover */
+    box-shadow: -5px 5px 10px 0px #FFA500; /* Glowing orange effect */
+  }
+  
+  /* Ensure Material button styles do not override custom styles */
+  :host ::ng-deep .mat-button {
+    min-width: auto;
+    text-transform: none;
+  }
+  

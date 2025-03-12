@@ -1,0 +1,54 @@
+/* builds.component.css */
+
+.build-page {
+    padding: 20px;
+    max-width: 1200px; /* Limit max width of the build page */
+    margin: 0 auto; /* Center the content */
+    min-height: 100vh; /* Ensure the page has a minimum height of 100vh (viewport height) */
+  }
+  
+  .pc-parts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;  /* Space between the PC parts */
+    padding-bottom: 120px; /* Adds extra space to ensure we can scroll past the last box */
+  }
+  
+  .pc-part-box {
+    background-color: #2d2d2d; /* Dark background for the box */
+    color: white; /* White text */
+    padding: 20px; /* Added padding to make sure content fits */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    border: 2px solid #FFA500; /* Yellow border */
+    max-width: 700px; /* Increased max-width to 700px for wider boxes */
+    width: 100%; /* Ensure it doesn't stretch too wide */
+    margin: 0 auto; /* Center the box horizontally */
+    box-sizing: border-box; /* Prevents padding from affecting the box width */
+    min-height: 200px; /* Set a minimum height to prevent cutting off content */
+  }
+  
+  /* Hover effect for the box */
+  .pc-part-box:hover {
+    transform: scale(1.05); /* Slightly scale the box when hovered */
+  }
+  
+  .part-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .part-description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #c0b9c0; /* Lighter text color for the description */
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .pc-part-box {
+      max-width: 90%; /* Adjust box size for smaller screens */
+    }
+  }
+  

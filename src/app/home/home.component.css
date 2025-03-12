@@ -1,0 +1,109 @@
+/* home.component.css */
+
+/* Ensure full page height and scrolling */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column; /* Stack the content vertically */
+  justify-content: flex-start; /* Align the content to the top */
+  align-items: flex-start; /* Align everything to the left */
+  padding: 20px;
+  flex-grow: 1; /* Allow the container to grow and take up remaining space */
+  box-sizing: border-box;
+  margin-bottom: 100px; /* Ensure enough space for footer */
+}
+
+/* Text container for "Optimal" and "AI PC Part Picker" */
+.text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align "Optimal" text to the left */
+  width: 100%; /* Make text container full width */
+  margin-bottom: 10px; /* Reduced space between text */
+}
+
+.text-container h1,
+.text-container h2 {
+  margin: 0; /* Remove margin to reduce space */
+  padding: 0; /* Remove padding between texts */
+}
+
+/* Content container for image and paragraph */
+.content-container {
+  display: flex;
+  flex-direction: column; /* Stack the content vertically */
+  align-items: flex-start; /* Align both image and paragraph to the left */
+  width: 100%;
+  margin-bottom: 20px; /* Space between content and search bar */
+}
+
+/* Styling for the image */
+.pc-image {
+  width: 40vw; /* Image takes 40% of the viewport width */
+  height: auto; /* Maintain the aspect ratio */
+  margin-left: auto; /* Push the image to the right */
+  margin-right: 0; /* Ensure no additional margin on the right */
+  border-radius: 8px;
+}
+
+/* Styling for the paragraph */
+.paragraph {
+  font-size: 2vw;
+  line-height: 1.6;
+  width: 70%;
+  margin: 20px auto;
+  text-align: center;
+}
+
+/* Styling for the searchbar container */
+.searchbar-container {
+  margin-top: 40px;
+  margin-bottom: 40px; /* Adds space below the search bar */
+  width: 80%;
+  max-width: 600px;
+  align-self: center;
+}
+
+/* Input field styling */
+.input {
+  background-color: transparent;
+  border: 2px solid #fff;
+  width: 100%;
+  height: 50px;
+  color: white;
+  padding: 0 20px;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+.input::placeholder {
+  color: #c0b9c0;
+}
+
+.input:focus {
+  outline: none;
+}
+
+#search-icon {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+#filter-icon {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
