@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';  // Import CommonModule
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-builds',
   standalone: true,
@@ -24,12 +24,30 @@ export class BuildsComponent implements OnInit {
     { name: 'Case (Chassis)', description: 'Encloses and protects all the internal components.' },
   ];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
     // Get the search term from the query params
     this.route.queryParams.subscribe(params => {
       this.searchTerm = params['search'] || ''; // Set search term from query params
+    });
+  }
+
+  onPartClick(part: any): void {
+    const payload = {
+      query: this.searchTerm,
+      component: part.name
+    }
+    console.log('Clicked part:', payload);
+    const url = 'http://localhost:8000/api/pc-parts/';
+
+    this.http.post(url, payload).subscribe({
+      next: (response) => {
+        console.log('Response from backend', response);
+      },
+      error: (error) =>{
+        console.error('Erroring sending to backend', error);
+      }
     });
   }
 }

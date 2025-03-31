@@ -4,10 +4,10 @@
     <h2>Search Term: {{ searchTerm }}</h2>
   
     <div class="pc-parts">
-      <div *ngFor="let part of pcParts" class="pc-part-box">
+      <button *ngFor="let part of pcParts" class="pc-part-box" (click)="onPartClick(part)">
         <h3 class="part-name">{{ part.name }}</h3>
         <p class="part-description">{{ part.description }}</p>
-      </div>
+      </button>
     </div>
   </div>
   
