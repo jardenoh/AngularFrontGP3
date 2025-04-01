@@ -1,13 +1,44 @@
-<!-- builds.component.html -->
 <div class="build-page">
-    <h1>PC Build</h1>
-    <h2>Search Term: {{ searchTerm }}</h2>
-  
-    <div class="pc-parts">
-      <button *ngFor="let part of pcParts" class="pc-part-box" (click)="onPartClick(part)">
-        <h3 class="part-name">{{ part.name }}</h3>
-        <p class="part-description">{{ part.description }}</p>
-      </button>
-    </div>
+  <div class="pc-parts">
+    <!-- Loops over PC parts and create a button for each part. If button is clicked, it will called onPartClick and pass the part 
+     
+         if results[part.name] is empty or null, load the css style of pc-part-box
+         if it does have results, load the no-box styling 
+         
+         if part is in awaitingResponse or already has a response, then button can't be clicked again
+         -->
+    <button *ngFor="let part of pcParts"
+            (click)="onPartClick(part)"
+            [ngClass]="{ 'pc-part-box': !results[part.name], 'no-box': results[part.name] }"
+            [disabled]="awaitingResponse.has(part.name) || results[part.name]">
+      
+      <!-- If waiting for a response, show a spinner -->
+      <ng-container *ngIf="awaitingResponse.has(part.name); else notLoading">
+        <div class="spinner"></div>
+      </ng-container>
+      
+      <ng-template #notLoading>
+        <!-- If results exist, show the Selected Components layout -->
+        <ng-container *ngIf="results[part.name] as result; else originalContent">
+          <div class="selected-components">
+            <h3>Select a component for {{ part.name }}</h3>
+            <div class="component-cards-container">
+              <!-- Each returned component is rendered as a card -->
+              <div *ngFor="let comp of results[part.name]" class="component-card">
+                <div *ngFor="let field of displayFields[part.name]">
+                  <p><strong>{{ field | titlecase }}:</strong> {{ comp[field] }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <!-- original page layout is displayed if not awaiting for response or selecting components -->
+        <ng-template #originalContent>
+          <h3 class="part-name">Search for {{ part.name }}</h3>
+          <p class="part-description">{{ part.description }}</p>
+        </ng-template>
+      </ng-template>
+      
+    </button>
   </div>
-  
+</div>

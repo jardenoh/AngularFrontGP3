@@ -24,6 +24,32 @@ export class BuildsComponent implements OnInit {
     { name: 'Case (Chassis)', description: 'Encloses and protects all the internal components.' },
   ];
 
+  results: {[partName:string]: any[]} = {};
+  awaitingResponse: Set<string> = new Set<string>();
+
+  // had issues with memory, storage, power supply, and cooling system component 
+  // because the part.name does not match backend name for these components
+  // needed to map each component to a name so that it can correctly be sent to backend
+  backendKeys: { [displayName: string]: string } = {
+    'CPU': 'cpu',
+    'Motherboard': 'motherboard',
+    'Memory (RAM)': 'ram',
+    'Storage (HDD/SSD)': 'storage',
+    'GPU': 'gpu',
+    'Power Supply Unit (PSU)': 'psu',
+    'Cooling System (Fans, Heatsinks)': 'cpucooler'
+  };
+
+  // list of fields of each component to be used to display in the html code
+  displayFields: { [partName: string]: string[] } = {
+    'CPU': ['name', 'price', 'core_count', 'core_clock', 'boost_clock'],
+    'Motherboard': ['name', 'price', 'socket', 'form_factor', 'memory_slots', 'max_memory'],
+    'Memory (RAM)': ['name', 'price', 'speed', 'modules', 'price_per_gb'],
+    'Storage (HDD/SSD)': ['name', 'price', 'capacity', 'form_factor', 'interface', 'type'],
+    'GPU': ['name', 'price', 'chipset', 'memory', 'core_clock', 'boost_clock', 'length'],
+    'Power Supply Unit (PSU)': ['name', 'price', 'type', 'wattage', 'efficiency', 'modular'],
+    'Cooling System (Fans, Heatsinks)': ['name', 'price', 'rpm', 'noise_level', 'size'],
+  };
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
@@ -34,19 +60,54 @@ export class BuildsComponent implements OnInit {
   }
 
   onPartClick(part: any): void {
+    // Prevent duplicate requests for the same part
+    if (this.awaitingResponse.has(part.name)) {
+      return;
+    }
+    // adds this part to awaitingResponse to trigger the spinner for this component
+    this.awaitingResponse.add(part.name);
+
+    // create payload of user query & component that is being requested
     const payload = {
       query: this.searchTerm,
-      component: part.name
-    }
+      component: this.backendKeys[part.name]
+    };
+
+    // Web console debugging
     console.log('Clicked part:', payload);
     const url = 'http://localhost:8000/api/pc-parts/';
 
+    // Make a post request to django backend
     this.http.post(url, payload).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log('Response from backend', response);
+        // use the mapped name of requested component so that angular can correctly parse it
+        const backendKey = this.backendKeys[part.name] || part.name.toLowerCase();
+
+        //  grabs the components it received and convert it into an array of object components
+        let partResults = response.components[backendKey];
+
+        // checks if response is empty
+        if (!partResults) {
+          partResults = [];
+        } 
+        
+        // converts the attributes of object returned into elements in an array
+        // ex.  "0": { "name": "Intel Core i5", ... },
+        //      "1": { "name": "AMD Ryzen 5", ... }
+        else if (!Array.isArray(partResults)) {
+          partResults = Object.values(partResults);
+        }
+
+        // stores the results into the associated part
+        this.results[part.name] = partResults;
+
+        // disables loading spinner
+        this.awaitingResponse.delete(part.name);
       },
-      error: (error) =>{
-        console.error('Erroring sending to backend', error);
+      error: (error) => {
+        console.error('Error sending to backend', error);
+        this.awaitingResponse.delete(part.name);
       }
     });
   }
