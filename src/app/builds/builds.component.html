@@ -9,7 +9,7 @@
          -->
     <button *ngFor="let part of pcParts"
             (click)="onPartClick(part)"
-            [ngClass]="{ 'pc-part-box': !results[part.name], 'no-box': results[part.name] }"
+            [ngClass]="{ 'card': !results[part.name], 'no-box': results[part.name] }"
             [disabled]="awaitingResponse.has(part.name) || results[part.name]">
       
       <!-- If waiting for a response, show a spinner -->
@@ -24,9 +24,16 @@
             <h3>Select a component for {{ part.name }}</h3>
             <div class="component-cards-container">
               <!-- Each returned component is rendered as a card -->
-              <div *ngFor="let comp of results[part.name]" class="component-card">
-                <div *ngFor="let field of displayFields[part.name]">
-                  <p><strong>{{ field | titlecase }}:</strong> {{ comp[field] }}</p>
+              <div *ngFor="let comp of results[part.name]" class="card">
+                <div class="first-content">
+                  <span>{{ comp[displayFields[part.name][0]] }}</span>
+                </div>
+                <div class="second-content">
+                  <span>
+                    <ng-container *ngFor="let field of displayFields[part.name]; let last = last">
+                      <strong>{{ field | titlecase }}:</strong> {{ comp[field] }}<br *ngIf="!last">
+                    </ng-container>
+                  </span>
                 </div>
               </div>
             </div>
