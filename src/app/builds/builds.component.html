@@ -21,7 +21,7 @@
        <div class="selected-components">
          <h3>Select a component for {{ part.name }}</h3>
          <div class="component-cards-container">
-           <div *ngFor="let comp of results[part.name]" class="component-card" (click)="selectPart(part.name, comp)">
+           <div *ngFor="let comp of results[part.name]" class="card" (click)="selectPart(part.name, comp)">
              <div class="first-content">
                <span>{{ comp[displayFields[part.name][0]] }}</span>
              </div>
