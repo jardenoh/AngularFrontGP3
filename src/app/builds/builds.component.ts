@@ -60,49 +60,30 @@ export class BuildsComponent implements OnInit {
   }
 
   onPartClick(part: any): void {
-    // Prevent duplicate requests for the same part
     if (this.awaitingResponse.has(part.name)) {
       return;
     }
-    // adds this part to awaitingResponse to trigger the spinner for this component
+    
     this.awaitingResponse.add(part.name);
-
-    // create payload of user query & component that is being requested
     const payload = {
       query: this.searchTerm,
       component: this.backendKeys[part.name]
     };
-
-    // Web console debugging
-    console.log('Clicked part:', payload);
+  
     const url = 'http://localhost:8000/api/pc-parts/';
-
-    // Make a post request to django backend
+  
     this.http.post(url, payload).subscribe({
       next: (response: any) => {
         console.log('Response from backend', response);
-        // use the mapped name of requested component so that angular can correctly parse it
         const backendKey = this.backendKeys[part.name] || part.name.toLowerCase();
-
-        //  grabs the components it received and convert it into an array of object components
-        let partResults = response.components[backendKey];
-
-        // checks if response is empty
-        if (!partResults) {
-          partResults = [];
-        } 
+        let partResults = response.components[backendKey] || [];
         
-        // converts the attributes of object returned into elements in an array
-        // ex.  "0": { "name": "Intel Core i5", ... },
-        //      "1": { "name": "AMD Ryzen 5", ... }
-        else if (!Array.isArray(partResults)) {
+        if (!Array.isArray(partResults)) {
           partResults = Object.values(partResults);
         }
-
-        // stores the results into the associated part
-        this.results[part.name] = partResults;
-
-        // disables loading spinner
+  
+        // Limit to 2 recommended components
+        this.results[part.name] = partResults.slice(0, 2);
         this.awaitingResponse.delete(part.name);
       },
       error: (error) => {
@@ -111,4 +92,24 @@ export class BuildsComponent implements OnInit {
       }
     });
   }
+  
+  // Handle selecting a component
+  selectPart(partName: string, selectedComponent: any): void {
+    const payload = {
+      component: this.backendKeys[partName],
+      selectedComponent: selectedComponent
+    };
+  
+    const url = 'http://localhost:8000/api/selected-part/';
+  
+    this.http.post(url, payload).subscribe({
+      next: (response) => {
+        console.log('Selected component sent:', response);
+      },
+      error: (error) => {
+        console.error('Error sending selected component:', error);
+      }
+    });
+  }
+  
 }
