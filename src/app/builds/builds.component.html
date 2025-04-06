@@ -1,0 +1,52 @@
+<!-- Build Page -->
+<div class="build-page">
+  <div class="pc-parts">
+
+    <!-- Initial Typing -->
+    <div class="button-box" *ngIf="showTyping" (click)="onBoxClick()">
+      <div class="typing-box">{{ typedText }}</div>
+      <div class="typing-box response">{{ typedResponse }}</div>
+    </div>
+
+    <!-- Typing Description -->
+    <div class="button-box" *ngIf="showDescriptionTyping">
+      <div class="typing-box">{{ typedDescription }}</div>
+    </div>
+
+    <!-- Part Options -->
+    <div class="part-container" *ngIf="showParts && results[currentPart]">
+      <div class="part-section">
+        <h2>Recommended {{ currentPart }}s</h2>
+        <p class="subtext">Please choose a {{ currentPart }} and click to continue</p>
+        <div class="part-row">
+          <div class="part-card" *ngFor="let item of results[currentPart]" (click)="selectPart(currentPart, item)">
+            <div *ngFor="let field of displayFields[currentPart]">
+              <strong>{{ field }}:</strong> {{ item[field] }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final Summary -->
+    <div class="part-container" *ngIf="showSummary">
+      <div class="part-section">
+        <h2>Your Completed Build</h2>
+        <div class="part-row">
+          <div class="part-card" *ngFor="let part of pcParts">
+            <h3>{{ part.name }}</h3>
+            <div *ngIf="selectedParts[part.name]">
+              <div *ngFor="let field of displayFields[part.name]">
+                <strong>{{ field }}:</strong> {{ selectedParts[part.name][field] }}
+              </div>
+            </div>
+            <div *ngIf="!selectedParts[part.name]">
+              <em>No selection</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,145 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(0deg, #000000 50%, #2a2a2a 150%, #b0b0b0 150%);
+  background-attachment: fixed;
+  color: white;
+}
+
+/* Full Page Container */
+.build-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Inner wrapper */
+.pc-parts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+/* Typing Box */
+.button-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  border-radius: 10px;
+  border: 2px solid #FFA500;
+  color: white;
+  cursor: pointer;
+  width: 60vw;
+  height: 50vh;
+  max-width: 900px;
+  max-height: 500px;
+  padding: 40px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Typing Text */
+.typing-box {
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: hidden;
+}
+
+.typing-box.response {
+  margin-top: 30px;
+}
+
+/* Recommended Part Section */
+.part-section {
+  width: 100%;
+  max-width: 1300px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.part-section h2 {
+  margin-bottom: 10px;
+  font-size: 2.4rem;
+  color: #FFA500;
+}
+
+.subtext {
+  font-size: 1.5rem;
+  color: #dddddd;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  text-align: center;
+  max-width: 800px;
+}
+
+/* Part Cards Layout */
+.part-row {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+/* Part Card Box */
+.part-card {
+  background-color: #000;
+  border: 3px solid #FFA500;
+  border-radius: 16px;
+  padding: 40px;
+  width: 460px;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  font-size: 1.5rem;
+  line-height: 2;
+}
+
+.part-card:hover {
+  transform: scale(1.05);
+  background-color: #111;
+}
+
+/* 🎯 Summary card formatting improvements */
+.part-card h3 {
+  font-size: 1.8rem;
+  color: #FFA500;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.part-card div {
+  margin-bottom: 10px;
+}
+
+.part-card strong {
+  color: #f5f5f5;
+  font-weight: 600;
+}
+
+.part-card em {
+  color: #aaa;
+  font-size: 1.2rem;
+}

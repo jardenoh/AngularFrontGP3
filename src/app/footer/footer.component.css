@@ -1,0 +1,14 @@
+/* Footer styles to match the navbar */
+footer {
+  background-color: #000; /* Solid black background instead of transparent */
+  color: white; /* White text for visibility */
+  height: 30px; /* Same height as navbar */
+  display: flex;
+  justify-content: center; /* Centers content horizontally */
+  align-items: center; /* Centers content vertically */
+  position: fixed; /* Fixed at the bottom */
+  bottom: 0; /* Positioned at the bottom */
+  width: 100%; /* Full width */
+  border-top: 2px solid #FFA500; /* Same yellow line as navbar */
+  box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
+}
