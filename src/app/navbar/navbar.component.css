@@ -3,84 +3,100 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 60px;
+  width: 100%; /* Full width */
+  height: 70px;
   z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: #1e1e1e !important;
-  border-bottom: 2px solid #b87333;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-  font-family: 'Georgia', serif;
+  background-color: #000000 !important; /* Solid Black */
+  border-bottom: 1px solid #FFA500; /* Thinner Orange bottom line */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Soft shadow */
 }
 
 /* Override Material's default toolbar background */
 :host ::ng-deep .mat-toolbar {
-  background-color: #1e1e1e !important;
-  color: #f8f1e5 !important;
-  border-bottom: 2px solid #b87333;
+  background-color: #000000 !important; /* Solid Black */
+  color: white !important;
+  border-bottom: 1px solid #FFA500; /* Change to 1px for thinner line */
   box-shadow: none !important;
-  font-family: 'Georgia', serif;
 }
 
 /* Navbar logo styles */
 .logo {
-  color: #cd7f32;
-  font-size: 20px;
-  font-family: 'Cinzel', serif;
-  text-shadow: 1px 1px 2px #3b2f2f;
+  color: white;
+  font-size: 30px;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Navigation buttons container */
 .nav-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-grow: 1;
-  margin: 0 auto;
+display: flex;
+justify-content: center;
+font-size: 20px;
+gap: 10px;
+flex-grow: 1;
+margin: 0 auto;
 }
 
-/* Steampunk Button Styling */
-.nav-buttons button {
-  font-size: 1rem;
-  padding: 0.8em 2em;
-  background-color: #2e2e2e;
-  border: 2px solid #bfa76f;
-  border-radius: 10px;
-  color: #f8f1e5;
-  font-weight: bold;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  box-shadow: inset 0 0 6px rgba(255, 248, 220, 0.1), 2px 2px 6px rgba(0, 0, 0, 0.4);
-  font-family: 'Georgia', serif;
+/* 🌟 Button Styling with Underline Animation */
+.nav-buttons button, .login-btn {
+color: white;
+text-decoration: none;
+font-size: 25px;
+border: none;
+background: none;
+font-weight: 300;
+font-family: 'Poppins', sans-serif;
+position: relative;
+padding: 10px 20px;
+cursor: pointer;
+overflow: hidden;
+border-radius: 0;
 }
 
-.nav-buttons button:hover {
-  transform: translateY(-2px);
-  background-color: #3b2f2f;
-  box-shadow: 2px 2px 8px rgba(191, 167, 111, 0.5);
+/* Top underline */
+.nav-buttons button::before,
+.login-btn::before {
+content: '';
+position: absolute;
+top: 0; /* Place the line at the top */
+left: 0;
+width: 100%;
+height: 2px;
+background: #faa500;
+transform: scaleX(0); /* Start with no width */
+transition: transform 0.5s ease-in-out;
+transform-origin: left;
 }
 
-/* Login button styles */
-.login-btn {
-  margin-left: auto;
-  color: #f8f1e5 !important;
-  font-weight: 600;
-  border-radius: 10px;
-  background-color: #2e2e2e !important;
-  padding: 0.8em 2em;
-  font-size: 1rem;
-  border: 2px solid #cd7f32;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  box-shadow: inset 0 0 6px rgba(255, 248, 220, 0.1), 2px 2px 6px rgba(0, 0, 0, 0.4);
-  font-family: 'Georgia', serif;
+/* Bottom underline */
+.nav-buttons button::after,
+.login-btn::after {
+content: '';
+position: absolute;
+bottom: 0; /* Place the line at the bottom */
+left: 0;
+width: 100%;
+height: 2px;
+background: #faa500;
+transform: scaleX(0); /* Start with no width */
+transition: transform 0.5s ease-in-out;
+transform-origin: right;
 }
 
-.login-btn:hover {
-  transform: translateY(-2px);
-  background-color: #3b2f2f !important;
-  box-shadow: 2px 2px 10px rgba(205, 127, 50, 0.4);
+/* Expand both lines on hover */
+.nav-buttons button:hover::before,
+.login-btn:hover::before {
+transform: scaleX(1);
+transform-origin: right;
+}
+
+.nav-buttons button:hover::after,
+.login-btn:hover::after {
+transform: scaleX(1);
+transform-origin: left;
 }
 
 /* Ensure Material button styles do not override custom styles */
