@@ -1,109 +1,155 @@
-/* home.component.css */
-
-/* Ensure full page height and scrolling */
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto; /* Allow vertical scrolling */
+  overflow-y: auto;
+  font-family: 'Georgia', serif;
 }
 
 .main-container {
   display: flex;
-  flex-direction: column; /* Stack the content vertically */
-  justify-content: flex-start; /* Align the content to the top */
-  align-items: flex-start; /* Align everything to the left */
-  padding: 20px;
-  flex-grow: 1; /* Allow the container to grow and take up remaining space */
-  box-sizing: border-box;
-  margin-bottom: 100px; /* Ensure enough space for footer */
-}
-
-/* Text container for "Optimal" and "AI PC Part Picker" */
-.text-container {
-  display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align "Optimal" text to the left */
-  width: 100%; /* Make text container full width */
-  margin-bottom: 10px; /* Reduced space between text */
+  align-items: center;
+  padding: 60px 20px 100px;
+  width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  gap: 80px;
 }
 
-.text-container h1,
-.text-container h2 {
-  margin: 0; /* Remove margin to reduce space */
-  padding: 0; /* Remove padding between texts */
-}
-
-/* Content container for image and paragraph */
-.content-container {
-  display: flex;
-  flex-direction: column; /* Stack the content vertically */
-  align-items: flex-start; /* Align both image and paragraph to the left */
+.carousel-wrapper {
   width: 100%;
-  margin-bottom: 20px; /* Space between content and search bar */
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #cd7f32;
+  box-shadow: 0 4px 12px rgba(205, 127, 50, 0.3);
 }
 
-/* Styling for the image */
-.pc-image {
-  width: 40vw; /* Image takes 40% of the viewport width */
-  height: auto; /* Maintain the aspect ratio */
-  margin-left: auto; /* Push the image to the right */
-  margin-right: 0; /* Ensure no additional margin on the right */
-  border-radius: 8px;
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-/* Styling for the paragraph */
 .paragraph {
-  font-size: 2vw;
-  line-height: 1.6;
-  width: 70%;
-  margin: 20px auto;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  line-height: 1.8;
+  color: #f8f1e5;
+  max-width: 1200px;
   text-align: center;
 }
 
-/* Styling for the searchbar container */
-.searchbar-container {
-  margin-top: 40px;
-  margin-bottom: 40px; /* Adds space below the search bar */
-  width: 80%;
-  max-width: 600px;
-  align-self: center;
+.how-it-works {
+  width: 100%;
 }
 
-/* Input field styling */
-.input {
-  background-color: transparent;
-  border: 2px solid #fff;
-  width: 100%;
-  height: 50px;
-  color: white;
-  padding: 0 20px;
-  font-size: 18px;
+.how-it-works h2 {
+  font-size: 2.8rem;
+  color: #cd7f32;
+  margin-bottom: 40px;
+  text-align: center;
+  text-shadow: 1px 1px 2px #3b2f2f;
+  font-family: 'Cinzel', serif;
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 60px;
+  padding-top: 40px;
+}
+
+.step {
+  flex: 1 1 300px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 280px;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid #b87333;
   border-radius: 10px;
+  box-shadow: inset 0 0 10px rgba(255, 248, 220, 0.05), 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.step:hover {
+  border-color: #bfa76f;
+  background-color: #3b2f2f;
+}
+
+.step h3 {
+  font-size: 1.8rem;
+  color: #cd7f32;
+  margin-bottom: 16px;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.step p {
+  color: #e0d6c2;
+  font-size: 1.4rem;
+  line-height: 2;
+  margin-top: 10px;
+}
+
+.searchbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+  padding: 0 20px;
+}
+
+.searchbar-container app-searchbar {
+  width: 100%;
+  max-width: 600px;
+}
+
+.input {
+  border: 2px solid #b87333;
+  width: 100%;
+  height: 60px;
+  color: #f8f1e5;
+  padding: 0 24px;
+  font-size: 20px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(255, 248, 220, 0.1);
+  caret-color: transparent;
+  font-family: 'Georgia', serif;
+  background-color: transparent;
 }
 
 .input::placeholder {
-  color: #c0b9c0;
+  color: #c8b89a;
+  font-size: 18px;
 }
 
 .input:focus {
   outline: none;
+  border-color: #bfa76f;
+  background-color: #3b2f2f;
 }
 
-#search-icon {
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
+#search-icon,
 #filter-icon {
   position: absolute;
   top: 50%;
-  right: 20px;
   transform: translateY(-50%);
   pointer-events: none;
+}
+
+#search-icon {
+  left: 20px;
+}
+
+#filter-icon {
+  right: 20px;
 }

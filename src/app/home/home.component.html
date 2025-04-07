@@ -1,26 +1,44 @@
 <!-- home.component.html -->
 
 <div class="main-container">
-  <!-- Text container for "Optimal" and "AI PC Part Picker" -->
-  <div class="text-container">
-    <h1>Optimal</h1>
-    <h2>AI PC Part Picker</h2>
+  <!-- Carousel at top -->
+  <div class="carousel-wrapper">
+    <div class="carousel-track">
+      <div class="carousel-slide"><img src="assets/gpu.png" /></div>
+      <div class="carousel-slide"><img src="assets/cpu.png" /></div>
+      <div class="carousel-slide"><img src="assets/motherboard.png" /></div>
+      <div class="carousel-slide"><img src="assets/ram.png" /></div>
+      <div class="carousel-slide"><img src="assets/storage.png" /></div>
+      <div class="carousel-slide"><img src="assets/psu.png" /></div>
+      <div class="carousel-slide"><img src="assets/cooler.png" /></div>
+    </div>
   </div>
 
-  <!-- Content container for the image and paragraph -->
-  <div class="content-container">
-    <!-- Image on the right -->
-    <!-- home.component.html -->
-  <img src="/pcparts.png" alt="PC Parts" class="pc-image" />
+  <!-- Paragraph -->
+  <p class="paragraph">
+    Optimal PC Part Picker is your go-to PC parts recommendation tool! Simply enter what you’ll use your PC for—gaming, streaming, editing, or work—and our custom AI search bar will recommend a tailor-made list of the best components for your needs and budget.
+  </p>
 
-
-    <!-- Paragraph below the image and text -->
-    <p class="paragraph">
-      Optimal PC Part Picker is your go-to PC parts recommendation tool! Simply enter what you’ll use your PC for—gaming, streaming, editing, or work—and our custom AI search bar will recommend a tailor-made list of the best components for your needs and budget.
-    </p>
+  <!-- How It Works Section -->
+  <div class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>1. Describe Your Needs</h3>
+        <p>Tell us what you'll use your PC for—gaming, editing, work, or more.</p>
+      </div>
+      <div class="step">
+        <h3>2. Let AI Recommend Parts</h3>
+        <p>Our smart AI engine will find parts that match your performance and budget needs.</p>
+      </div>
+      <div class="step">
+        <h3>3. Finalize Your Build</h3>
+        <p>Pick from the best parts and complete your personalized PC build.</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Add Searchbar component below the paragraph -->
+  <!-- Searchbar at bottom -->
   <div class="searchbar-container">
     <app-searchbar></app-searchbar>
   </div>
