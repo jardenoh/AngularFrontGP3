@@ -41,7 +41,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
         takeUntil(this.destroy$)
       )
       .subscribe((event: NavigationEnd) => {
-        // Scroll to top only if there is no fragment in the URL
         if (!this.route.snapshot.fragment) {
           window.scrollTo(0, 0);
         }
@@ -61,5 +60,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
