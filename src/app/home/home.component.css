@@ -1,3 +1,4 @@
+/* home.component.css */
 body {
   margin: 0;
   padding: 0;
@@ -17,10 +18,39 @@ body {
   gap: 80px;
 }
 
-.carousel-wrapper {
+/* Content: Top Section */
+.content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* responsive */
   width: 100%;
-  max-width: 900px;
-  aspect-ratio: 16 / 9;
+  gap: 40px;
+}
+
+/* Left Side */
+.text-search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  min-width: 300px;
+  padding: 15px;
+}
+
+.text-search-container .paragraph {
+  font-size: 20px;
+  line-height: 1.6;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+/* Carousel (Right Side) */
+.carousel-wrapper {
+  width: 40vw;
+  max-width: 600px;
+  aspect-ratio: 16/9;
   overflow: hidden;
   border-radius: 12px;
   display: flex;
@@ -30,126 +60,191 @@ body {
   box-shadow: 0 4px 12px rgba(205, 127, 50, 0.3);
 }
 
-.carousel-image {
+.carousel-slide img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.paragraph {
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
-  line-height: 1.8;
-  color: #f8f1e5;
-  max-width: 1200px;
-  text-align: center;
-}
-
-.how-it-works {
-  width: 100%;
-}
-
-.how-it-works h2 {
-  font-size: 2.8rem;
-  color: #cd7f32;
-  margin-bottom: 40px;
-  text-align: center;
-  text-shadow: 1px 1px 2px #3b2f2f;
-  font-family: 'Cinzel', serif;
-}
-
-.steps {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 60px;
-  padding-top: 40px;
-}
-
-.step {
-  flex: 1 1 300px;
-  max-width: 320px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 280px;
-  padding: 20px;
-  text-align: center;
-  border: 2px solid #b87333;
-  border-radius: 10px;
-  box-shadow: inset 0 0 10px rgba(255, 248, 220, 0.05), 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
-}
-
-.step:hover {
-  border-color: #bfa76f;
-  background-color: #3b2f2f;
-}
-
-.step h3 {
-  font-size: 1.8rem;
-  color: #cd7f32;
-  margin-bottom: 16px;
-  font-family: 'Cormorant Garamond', serif;
-}
-
-.step p {
-  color: #e0d6c2;
-  font-size: 1.4rem;
-  line-height: 2;
-  margin-top: 10px;
-}
-
+/* Searchbar */
 .searchbar-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 60px;
-  padding: 0 20px;
-}
-
-.searchbar-container app-searchbar {
   width: 100%;
   max-width: 600px;
 }
 
-.input {
-  border: 2px solid #b87333;
+/* How It Works - Flipping Cards */
+.how-it-works {
   width: 100%;
-  height: 60px;
-  color: #f8f1e5;
-  padding: 0 24px;
+  text-align: center;
+  color: #cd7f32;
+  font-size: 30px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.card {
+  width: 300px;
+  height: 300px;
+  background-color: #1e1e1e; /* Dark background */
+  border: 2px solid #cd7f32; /* Gold border */
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(205, 127, 50, 0.2);
+  transition: all 0.4s;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s ease; /* <-- this enables smooth scaling */
+}
+
+.first-content, .second-content {
+  position: absolute; /* Add this */
+  top: 0;
+  left: 0;
+  height: 100%; /* Always full card height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  transition: all 0.4s ease;
+}
+
+.card:hover {
+  transform: scale(1.05); /* <-- this makes the card grow on hover */
+
+}
+
+/* Only the opacity will change on hover now */
+.first-content {
+  opacity: 1;
+  z-index: 2; /* Keep it on top initially */
   font-size: 20px;
-  border-radius: 10px;
-  box-shadow: inset 0 0 5px rgba(255, 248, 220, 0.1);
-  caret-color: transparent;
-  font-family: 'Georgia', serif;
-  background-color: transparent;
+  color: #ffffff;
 }
 
-.input::placeholder {
-  color: #c8b89a;
-  font-size: 18px;
+.card:hover .first-content {
+  opacity: 0;
 }
 
-.input:focus {
-  outline: none;
-  border-color: #bfa76f;
-  background-color: #3b2f2f;
+.second-content {
+  opacity: 0;
+  z-index: 1;
+  transform: rotateY(180deg); /* Optional: prepares for 3D flip if you want */
+  font-size: 20px;
+  color: #1e1e1e;
 }
 
-#search-icon,
-#filter-icon {
+.card:hover .second-content {
+  opacity: 1;
+  transform: rotateY(0deg); /* Optional: prepares for 3D flip if you want */
+  background-color: #cd7f32;
+}
+
+/* Text styles inside cards stay the same */
+.first-content h3, .second-content p {
+  text-align: center;
+  margin: 0;
+}
+
+.FAQ {
+  font-size: 20px;
+  line-height: 1.6;
+  text-align: left;
+  margin: 30px;
+  padding: 50px;
+}
+
+.FAQ h1 {
+  width: 100%;
+  text-align: left;
+  color: #cd7f32;
+}
+
+/* Back to Top Button Styles */
+.bottom-build-pc {
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  padding: 20px 0; /* Add some padding above and below the button */
+  width: 100%; /* Make the container span the full width */
+  font: 'Poppins', sans-serif;
+}
+
+.bottom-build-pc button {
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border: 1px solid #faa500;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+
+.bottom-build-pc button:hover {
+  background: #faa500;
+  box-shadow: 0 0 30px 5px #faa500;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.bottom-build-pc button:hover::before {
+  -webkit-animation: sh02 0.5s 0s linear;
+  -moz-animation: sh02 0.5s 0s linear;
+  animation: sh02 0.5s 0s linear;
+}
+
+.bottom-build-pc button::before {
+  content: '';
+  display: block;
+  width: 0px;
+  height: 86%;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
+  top: 7%;
+  left: 0%;
+  opacity: 0;
+  background: #fff;
+  box-shadow: 0 0 50px 30px #fff;
+  -webkit-transform: skewX(-20deg);
+  -moz-transform: skewX(-20deg);
+  -ms-transform: skewX(-20deg);
+  -o-transform: skewX(-20deg);
+  transform: skewX(-20deg);
 }
 
-#search-icon {
-  left: 20px;
+@keyframes sh02 {
+  from {
+    opacity: 0;
+    left: 0%;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    left: 100%;
+  }
 }
 
-#filter-icon {
-  right: 20px;
+.bottom-build-pc button:active {
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: box-shadow 0.2s ease-in;
+  -moz-transition: box-shadow 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in;
 }
+
