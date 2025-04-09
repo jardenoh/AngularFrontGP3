@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { LoadingService } from '../loading.service';  // Correct import path for LoadingService
 
 @Component({
   selector: 'app-builds',
@@ -77,7 +78,9 @@ export class BuildsComponent implements OnInit {
     'Cooling System (Fans, Heatsinks)': ['name', 'price', 'rpm', 'noise_level', 'size'],
   };
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  amazonCartLink: string = '';
+
+  constructor(private route: ActivatedRoute, private http: HttpClient, private loadingService: LoadingService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -239,6 +242,28 @@ export class BuildsComponent implements OnInit {
       console.log('🎉 Build complete! Final selections:', this.selectedParts);
       this.showParts = false;
       this.showSummary = true;
+      this.buildAmazonCartLink();
     }
+  }
+
+  buildAmazonCartLink() {
+    let cartLink = 'https://www.amazon.com/gp/aws/cart/add.html?';
+
+    let index = 1;
+    for (const partName in this.selectedParts) {
+      const part = this.selectedParts[partName];
+      if (part && part.asin) {
+        cartLink += `ASIN.${index}=${part.asin}&Quantity.${index}=1&`;
+        index++;
+      }
+    }
+
+    // Remove trailing "&" from the link
+    this.amazonCartLink = cartLink.slice(0, -1);
+  }
+
+  // Add the spinner conditionally
+  getSpinnerVisibility(): boolean {
+    return this.awaitingResponse.size > 0;
   }
 }

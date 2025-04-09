@@ -1,112 +1,196 @@
-/* home.component.css */
+/* Box-sizing reset */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-y: auto;
   font-family: 'Georgia', serif;
+  color: #fff;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, #000000, #0a0a0a);
 }
 
 .main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 60px 20px 100px;
-  width: 100vw;
-  min-height: 100vh;
+  width: 100%;
   box-sizing: border-box;
-  gap: 80px;
 }
 
-/* Content: Top Section */
-.content-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; /* responsive */
+.page-wrapper {
   width: 100%;
-  gap: 40px;
+  margin: 0 auto;
+  padding: 0 5vw;
+  box-sizing: border-box;
 }
 
-/* Left Side */
-.text-search-container {
+.intro-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 210px; /* Increased space above the content */
+  background: transparent;
+}
+
+.text-search-container.centered {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 40%;
-  min-width: 300px;
-  padding: 15px;
+  align-items: center;
+  padding-top: 60px;
 }
 
-.text-search-container .paragraph {
-  font-size: 20px;
-  line-height: 1.6;
-  text-align: left;
+.text-search-container h1 {
+  font-size: 56px;
   margin-bottom: 20px;
+  position: relative;
+  white-space: nowrap; /* prevents wrapping */
 }
 
-/* Carousel (Right Side) */
-.carousel-wrapper {
-  width: 40vw;
-  max-width: 600px;
-  aspect-ratio: 16/9;
-  overflow: hidden;
-  border-radius: 12px;
+.text-search-container h1::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -12px;
+  width: 160px;
+  height: 5px;
+  background-color: #faa500;
+  border-radius: 2px;
+}
+
+.intro-subline {
+  font-size: 30px;
+  line-height: 2;
+  margin-top: 60px;
+  margin-bottom: 80px;
+  max-width: 1100px; /* wider for alignment */
+}
+
+.searchbar-wrapper {
+  max-width: 900px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 3px solid #cd7f32;
-  box-shadow: 0 4px 12px rgba(205, 127, 50, 0.3);
+  margin-bottom: 80px;
 }
 
-.carousel-slide img {
+app-searchbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  max-width: 900px;
 }
 
-/* Searchbar */
-.searchbar-container {
+app-searchbar input {
+  flex: 1;
+  padding: 20px 28px;
+  font-size: 22px;
+  border: 1px solid #faa500;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+app-searchbar button {
+  padding: 20px 28px;
+  font-size: 22px;
+  background-color: #c2701f;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+app-searchbar button:hover {
+  background-color: #faa500;
+}
+
+.arrow-images {
+  margin-top: 50px; /* Moved arrows further down */
+  margin-bottom: 20px; /* Reduced space after arrows */
   width: 100%;
-  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
 }
 
-/* How It Works - Flipping Cards */
+.arrow-images img {
+  height: 200px;
+  width: auto;
+  opacity: 1;
+  transition: transform 0.3s ease;
+}
+
+.arrow-images img:hover {
+  transform: scale(1.05);
+}
+
 .how-it-works {
-  width: 100%;
+  margin-top: 100px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   color: #cd7f32;
   font-size: 30px;
+  padding-top: 60px;
+  background: transparent;
+}
+
+.hover-more-text {
+  font-size: 24px; /* Increased font size */
+  color: white; /* White color */
+  margin-top: 20px; /* Reduced space between title and "Hover for more" */
+  font-weight: bold;
+  cursor: default; /* Removed pointer to make it non-clickable */
+  text-decoration: none; /* Removed underline */
+  display: block;
+  text-align: center; /* Centered text */
 }
 
 .card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
+  gap: 60px; /* Increased space between the cards */
   margin-top: 30px;
 }
 
 .card {
-  width: 300px;
-  height: 300px;
-  background-color: #1e1e1e; /* Dark background */
-  border: 2px solid #cd7f32; /* Gold border */
+  width: 400px; /* Made the cards wider */
+  height: 400px; /* Adjusted for a wider size */
+  background-color: transparent; /* Removed gray background */
+  border: 2px solid #cd7f32;
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(205, 127, 50, 0.2);
-  transition: all 0.4s;
+  transition: transform 0.4s ease;
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.4s ease; /* <-- this enables smooth scaling */
 }
 
-.first-content, .second-content {
-  position: absolute; /* Add this */
+.card:hover {
+  transform: scale(1.05);
+}
+
+.first-content,
+.second-content {
+  position: absolute;
   top: 0;
   left: 0;
-  height: 100%; /* Always full card height */
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -115,40 +199,33 @@ body {
   transition: all 0.4s ease;
 }
 
-.card:hover {
-  transform: scale(1.05); /* <-- this makes the card grow on hover */
-
-}
-
-/* Only the opacity will change on hover now */
-.first-content {
-  opacity: 1;
-  z-index: 2; /* Keep it on top initially */
-  font-size: 20px;
-  color: #ffffff;
-}
-
 .card:hover .first-content {
   opacity: 0;
+}
+
+.first-content {
+  opacity: 1;
+  z-index: 2;
+  font-size: 20px;
+  color: #ffffff;
 }
 
 .second-content {
   opacity: 0;
   z-index: 1;
-  transform: rotateY(180deg); /* Optional: prepares for 3D flip if you want */
+  transform: rotateY(180deg);
   font-size: 20px;
   color: #1e1e1e;
+  background-color: #cd7f32;
 }
 
 .card:hover .second-content {
   opacity: 1;
-  transform: rotateY(0deg); /* Optional: prepares for 3D flip if you want */
-  background-color: #cd7f32;
+  transform: rotateY(0deg);
 }
 
-/* Text styles inside cards stay the same */
-.first-content h3, .second-content p {
-  text-align: center;
+.first-content h3,
+.second-content p {
   margin: 0;
 }
 
@@ -158,6 +235,7 @@ body {
   text-align: left;
   margin: 30px;
   padding: 50px;
+  background: transparent;
 }
 
 .FAQ h1 {
@@ -166,85 +244,35 @@ body {
   color: #cd7f32;
 }
 
-/* Back to Top Button Styles */
 .bottom-build-pc {
   display: flex;
-  justify-content: center; /* Center the button horizontally */
-  padding: 20px 0; /* Add some padding above and below the button */
-  width: 100%; /* Make the container span the full width */
-  font: 'Poppins', sans-serif;
+  justify-content: center;
+  padding: 20px 0;
+  width: 100%;
 }
 
 .bottom-build-pc button {
   position: relative;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 7px;
   border: 1px solid #faa500;
-  font-size: 14px;
+  font-size: 16px;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 2px;
   background: transparent;
   color: #fff;
   overflow: hidden;
-  box-shadow: 0 0 0 0 transparent;
-  -webkit-transition: all 0.2s ease-in;
-  -moz-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
 }
 
 .bottom-build-pc button:hover {
   background: #faa500;
   box-shadow: 0 0 30px 5px #faa500;
-  -webkit-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
-}
-
-.bottom-build-pc button:hover::before {
-  -webkit-animation: sh02 0.5s 0s linear;
-  -moz-animation: sh02 0.5s 0s linear;
-  animation: sh02 0.5s 0s linear;
-}
-
-.bottom-build-pc button::before {
-  content: '';
-  display: block;
-  width: 0px;
-  height: 86%;
-  position: absolute;
-  top: 7%;
-  left: 0%;
-  opacity: 0;
-  background: #fff;
-  box-shadow: 0 0 50px 30px #fff;
-  -webkit-transform: skewX(-20deg);
-  -moz-transform: skewX(-20deg);
-  -ms-transform: skewX(-20deg);
-  -o-transform: skewX(-20deg);
-  transform: skewX(-20deg);
-}
-
-@keyframes sh02 {
-  from {
-    opacity: 0;
-    left: 0%;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-    left: 100%;
-  }
 }
 
 .bottom-build-pc button:active {
   box-shadow: 0 0 0 0 transparent;
-  -webkit-transition: box-shadow 0.2s ease-in;
-  -moz-transition: box-shadow 0.2s ease-in;
   transition: box-shadow 0.2s ease-in;
 }
-

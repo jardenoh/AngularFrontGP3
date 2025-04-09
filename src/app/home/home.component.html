@@ -1,86 +1,79 @@
-<!-- home.component.html -->
-
 <div class="main-container">
-  <!-- Top Section: Text + Search Bar + Carousel -->
-  <div class="content-container">
-    <!-- Left: Text and Searchbar -->
-    <div class="text-search-container">
-      <h1>Giving you the best tech with the latest tech.</h1>
-      <p class="paragraph">
-        Optimal PC Part Picker is your go-to PC parts recommendation tool! Simply enter what you’ll use your PC for—gaming, streaming, editing, or work—and our custom AI search will recommend a tailor-made list of the best components for your needs and budget.
-      </p>
-
-      <div class="searchbar-container">
-        <app-searchbar></app-searchbar>
-      </div>
-    </div>
-
-    <!-- Right: Carousel -->
-    <div class="carousel-wrapper">
-      <div class="carousel-track">
-        <div class="carousel-slide"><img src="assets/gpu.png" /></div>
-        <div class="carousel-slide"><img src="assets/cpu.png" /></div>
-        <div class="carousel-slide"><img src="assets/motherboard.png" /></div>
-        <div class="carousel-slide"><img src="assets/ram.png" /></div>
-        <div class="carousel-slide"><img src="assets/storage.png" /></div>
-        <div class="carousel-slide"><img src="assets/psu.png" /></div>
-        <div class="carousel-slide"><img src="assets/cooler.png" /></div>
+  <!-- Intro Section -->
+  <div class="intro-wrapper">
+    <div class="page-wrapper">
+      <div class="text-search-container centered">
+        <h1>Giving you the best tech with the latest tech.</h1>
+        <p class="intro-subline">
+          Optimal PC Part Picker is your go-to PC parts recommendation tool! Simply enter what you’ll use your PC for—gaming, streaming, editing, or work—and our custom AI search will recommend a tailor-made list of the best components for your needs and budget.
+        </p>
+        <div class="searchbar-wrapper">
+          <app-searchbar></app-searchbar>
+        </div>
+        <div class="arrow-images">
+          <img src="assets/arrowdown1.png" alt="Arrow Down 1" />
+          <img src="assets/arrowdown2.png" alt="Arrow Down 2" />
+        </div>
       </div>
     </div>
   </div>
 
-    <!-- How It Works Section -->
-    <div class="how-it-works" id="how-it-works" #howItWorksSection>
-      <h2>How It Works</h2>
-      <div class="card-container">
-        <div class="card">
-          <div class="first-content">
-            <h3>1. Describe Your Needs</h3>
-          </div>
-          <div class="second-content">
-            <p>For example: <br> "I want a PC that can play the latest games."</p>
-          </div>
+  <!-- How It Works -->
+  <div class="how-it-works" id="how-it-works" #howItWorksSection>
+    <h2>How It Works</h2>
+    <!-- Hover for more directly under the title, before the cards -->
+    <span class="hover-more-text">Hover for more</span>
+    <div class="card-container">
+      <div class="card">
+        <div class="first-content">
+          <h3>1. Describe Your Needs</h3>
         </div>
-        
-        <div class="card">
-          <div class="first-content">
-            <h3>2. Let AI Recommend Parts</h3>
-          </div>
-          <div class="second-content">
-            <p>Our AI engine will analyze a database of PC parts and find ones that match your performance and budget needs.</p>
-          </div>
+        <div class="second-content">
+          <p>For example: <br> "I want a PC that can play the latest games."</p>
         </div>
-        
-        <div class="card">
-          <div class="first-content">
-            <h3>3. Finalize Your Build</h3>
-          </div>
-          <div class="second-content">
-            <p>AMD Ryzen 9 7950X3D <br> Price: $564.00 <br> Cores: 16</p>
-          </div>
-        </div> 
+      </div>
+      <div class="card">
+        <div class="first-content">
+          <h3>2. Let AI Recommend Parts</h3>
+        </div>
+        <div class="second-content">
+          <p>Our AI engine will analyze a database of PC parts and find ones that match your performance and budget needs.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="first-content">
+          <h3>3. Finalize Your Build</h3>
+        </div>
+        <div class="second-content">
+          <p>AMD Ryzen 9 7950X3D <br> Price: $564.00 <br> Cores: 16</p>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- FAQ Section -->
   <div class="FAQ">
     <h1>Why OptimalPC?</h1>
-    <p>Building your own PC offers the benefits of customization, long-term cost efficiency, and upgrade
-       flexibility, allowing you to tailor your system to meet your exact needs. However, for new and veteran 
-       builders alike, building an updated PC can quickly become overwhelming. From spending hours pouring through 
-       forum posts only to be met with stalwart opinions and recommendations, and new parts seemingly releasing 
-       every week, the idea of building a PC made to last becomes a dreadful, almost impossible task for many. OptimalPC 
-       is working to fix this. By using AI to offer precise, objective recommendations, we aim to lower the difficulty 
-       threshold and make PC building easier and more accessible than ever before.
-      </p>
-      <br>
-      <h1>Why not some other AI tool?</h1>
-      <p>Many large language models are only trained up to a certain date and have limited knowledge on PC parts, so 
-        any recommendations they make can be inaccurate or extremely out of date. OptimalPC uses an open-source database 
-        of released parts that's constantly and consistently updated. Of course, as with any AI tool, we highly recommend 
-        running any part recommendations by a trusted professional before making any purchases.</p>
+    <p>
+      Building your own PC offers the benefits of customization, long-term cost efficiency, and upgrade
+      flexibility, allowing you to tailor your system to meet your exact needs. However, for new and veteran
+      builders alike, building an updated PC can quickly become overwhelming. From spending hours pouring through
+      forum posts only to be met with stalwart opinions and recommendations, and new parts seemingly releasing
+      every week, the idea of building a PC made to last becomes a dreadful, almost impossible task for many.
+      OptimalPC is working to fix this. By using AI to offer precise, objective recommendations, we aim to lower
+      the difficulty threshold and make PC building easier and more accessible than ever before.
+    </p>
 
-        <div class="bottom-build-pc">
-          <button (click)="scrollToTop()">Build your PC</button>
-        </div>
-  </div>  
+    <h1>Why not some other AI tool?</h1>
+    <p>
+      Many large language models are only trained up to a certain date and have limited knowledge on PC parts, so 
+      any recommendations they make can be inaccurate or extremely out of date. OptimalPC uses an open-source database 
+      of released parts that's constantly and consistently updated. Of course, as with any AI tool, we highly recommend 
+      running any part recommendations by a trusted professional before making any purchases.
+    </p>
+
+    <div class="bottom-build-pc">
+      <button (click)="scrollToTop()">Build your PC</button>
+    </div>
+  </div>
 </div>

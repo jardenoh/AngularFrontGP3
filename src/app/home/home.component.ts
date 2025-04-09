@@ -35,6 +35,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Add home-page class to body to enable scrolling on the Home page
+    document.body.classList.add('home-page');
+
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
@@ -58,6 +61,9 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Remove home-page class from body when leaving the Home page to disable scrolling elsewhere
+    document.body.classList.remove('home-page');
+    
     this.destroy$.next();
     this.destroy$.complete();
   }

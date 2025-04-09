@@ -1,25 +1,24 @@
-/* Global styles */
+/* Global styles - Disable scrolling globally */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
   width: 100%;
+  overflow: hidden;  /* Prevent scrolling globally */
 }
 
-/* 🌟 Apply Poppins font globally */
+/* Apply Poppins font globally */
 body {
-  font-family: 'Poppins', sans-serif; /* Set Poppins font */
+  font-family: 'Poppins', sans-serif;
   background: linear-gradient(0deg, #000000 50%, #2a2a2a 150%, #b0b0b0 150%);
-  background-attachment: fixed; /* Ensures background stays in place */
+  background-attachment: fixed;
   color: white;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   background-size: cover;
-  padding-top: 60px; /* Prevents content from overlapping navbar */
-  padding-bottom: 60px; /* Prevents content from overlapping footer */
 }
 
-/* 🌟 Fix: Force the background gradient to blend with the navbar */
+/* Fix: Force the background gradient to blend with the navbar */
 .navbar {
   position: fixed;
   top: 0;
@@ -31,21 +30,22 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  background-color: rgba(0, 0, 0, 0.5) !important; /* Force transparent black */
-  backdrop-filter: blur(5px); /* Optional: Adds subtle blur effect */
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(5px);
 }
 
 /* Content section styles */
 .content {
   padding: 20px;
-  min-height: calc(100vh - 120px); /* Adjust based on navbar and footer */
+  min-height: calc(100vh - 120px);  /* Make sure content fits without scrolling */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;  /* Prevent scrolling within content */
 }
 
-/* 🌟 Fix: Ensure the footer is properly positioned */
+/* Ensure the footer is properly positioned */
 .footer {
   position: fixed;
   bottom: 0;
@@ -56,5 +56,11 @@ body {
   justify-content: center;
   align-items: center;
   color: white;
-  background: rgba(0, 0, 0, 0.7); /* Optional: Slightly transparent footer */
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Enable scrolling only on the Home page */
+.home-page {
+  overflow: auto;  /* Enable scrolling for the Home page */
+  height: 100%;     /* Ensure Home page content fits within the viewport */
 }

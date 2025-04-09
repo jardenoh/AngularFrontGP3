@@ -14,29 +14,29 @@
 }
 
 .input {
-  background-color: white;
-  border: 2px solid #b38600;
+  background-color: transparent; /* Transparent background */
+  border: 2px solid #faa500; /* Line color under the header */
   flex: 1;
   height: 60px;
-  color: black;
+  color: white; /* White text */
   padding: 0 24px;
   font-size: 20px;
   border-radius: 12px;
 }
 
 .input::placeholder {
-  color: #999;
+  color: #999; /* Lighter gray placeholder */
   font-size: 18px;
 }
 
 .input:focus {
   outline: none;
-  border-color: #cc9900;
+  border-color: #faa500; /* Brighter gold on focus */
 }
 
 .search-button {
-  background-color: #cd7f32;
-  color: black;
+  background-color: #faa500; /* Button color same as the line */
+  color: white; /* White text */
   border: none;
   height: 60px;
   padding: 0 28px;
@@ -45,8 +45,5 @@
   border-radius: 12px;
   cursor: pointer;
   white-space: nowrap;
-}
-
-.search-button:hover {
-  background-color: #faa500;
+  transition: none; /* Remove hover effect */
 }
