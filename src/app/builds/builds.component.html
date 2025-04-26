@@ -1,21 +1,30 @@
-<!-- Build Page -->
 <div class="build-page">
   <div class="pc-parts">
 
     <!-- Initial Typing -->
-    <div class="button-box" *ngIf="showTyping" (click)="onBoxClick()">
-      <div class="typing-box">{{ typedText }}</div>
-      <div class="typing-box response">{{ typedResponse }}</div>
+    <div class="button-box" *ngIf="showTyping" (click)="onBoxClick()" [ngClass]="{ 'pulsing': getSpinnerVisibility() }">
+      <div class="typing-box"><span class="fade-text">{{ typedText }}</span></div>
+      <div class="typing-box response"><span class="fade-text">{{ typedResponse }}</span></div>
+
+      <!-- Searching for parts inside the box at the bottom -->
+      <div *ngIf="getSpinnerVisibility()" class="searching-text">
+        <span class="fade-text">Searching for parts{{ loadingDots }}</span>
+      </div>
     </div>
 
     <!-- Typing Description -->
-    <div class="button-box" *ngIf="showDescriptionTyping">
-      <div class="typing-box">{{ typedDescription }}</div>
+    <div class="button-box" *ngIf="showDescriptionTyping" [ngClass]="{ 'pulsing': getSpinnerVisibility() }">
+      <div class="typing-box"><span class="fade-text">{{ typedDescription }}</span></div>
+
+      <!-- Searching for parts inside the box at the bottom -->
+      <div *ngIf="getSpinnerVisibility()" class="searching-text">
+        <span class="fade-text">Searching for parts{{ loadingDots }}</span>
+      </div>
     </div>
 
-    <!-- Part Options -->
-    <div class="part-container" *ngIf="showParts && results[currentPart]">
-      <div class="part-section">
+    <!-- Part Options (Recommended Parts Section) -->
+    <div class="recommended-wrapper" *ngIf="showParts && results[currentPart]">
+      <div class="recommended-block">
         <h2>Recommended {{ currentPart }}s</h2>
         <p class="subtext">Please choose a {{ currentPart }} and click to continue</p>
         <div class="part-row">
@@ -32,7 +41,7 @@
     <div class="part-container" *ngIf="showSummary">
       <div class="part-section">
         <h2>Your Completed Build</h2>
-        <div class="part-row">
+        <div class="summary-row">
           <div class="part-card" *ngFor="let part of pcParts">
             <h3>{{ part.name }}</h3>
             <div *ngIf="selectedParts[part.name]">
@@ -45,6 +54,13 @@
             </div>
           </div>
         </div>
+
+        <!-- Add All to Cart Button (Centered) -->
+        <a [href]="amazonCartLink" target="_blank">
+          <button style="margin-top: 20px; background-color: #FFA500; color: white; padding: 10px 20px; font-size: 1.2rem; border: none; border-radius: 5px; cursor: pointer;">
+            Add All to Amazon Cart
+          </button>
+        </a>
       </div>
     </div>
 

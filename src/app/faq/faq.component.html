@@ -1,0 +1,95 @@
+<div class="faq-page-container">
+
+    <!-- Header -->
+    <h1 class="faq-header">How It Works / FAQ</h1>
+    <p class="faq-subheader">Hover and click for more</p>
+  
+    <!-- How It Works Flip Cards -->
+    <div class="how-it-works-section">
+      <div class="card-container">
+        <div class="card">
+          <div class="card-inner">
+            <div class="first-content">
+              <h3>1. Describe Your Needs</h3>
+            </div>
+            <div class="second-content">
+              <p>Example: "I want a PC that can handle 4K video editing."</p>
+            </div>
+          </div>
+        </div>
+  
+        <div class="card">
+          <div class="card-inner">
+            <div class="first-content">
+              <h3>2. Let AI Recommend Parts</h3>
+            </div>
+            <div class="second-content">
+              <p>Our AI analyzes up-to-date part databases to recommend the best options.</p>
+            </div>
+          </div>
+        </div>
+  
+        <div class="card">
+          <div class="card-inner">
+            <div class="first-content">
+              <h3>3. Finalize Your Build</h3>
+            </div>
+            <div class="second-content">
+              <p>Customize your build and prepare for assembly!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Build Your PC Button -->
+    <div class="build-pc-button-container">
+      <button class="build-pc-button" (click)="navigateHome()">Build Your PC</button>
+    </div>
+  
+    <!-- Glowing Divider After Flip Cards -->
+    <div class="glow-divider"></div>
+  
+    <!-- Beginner Section -->
+    <div class="faq-level-header">Beginner Questions</div>
+    <div class="faq-questions-section">
+      <div *ngFor="let faq of beginnerFaqs; let i = index" class="faq-item">
+        <div class="faq-question" (click)="toggleFAQ('beginner', i)">
+          {{ faq.question }}
+        </div>
+        <div class="faq-answer" *ngIf="faq.open">
+          {{ faq.answer }}
+        </div>
+      </div>
+      <div class="small-glow-divider"></div>
+    </div>
+  
+    <!-- Intermediate Section -->
+    <div class="faq-level-header">Intermediate Questions</div>
+    <div class="faq-questions-section">
+      <div *ngFor="let faq of intermediateFaqs; let i = index" class="faq-item">
+        <div class="faq-question" (click)="toggleFAQ('intermediate', i)">
+          {{ faq.question }}
+        </div>
+        <div class="faq-answer" *ngIf="faq.open">
+          {{ faq.answer }}
+        </div>
+      </div>
+      <div class="small-glow-divider"></div>
+    </div>
+  
+    <!-- Advanced Section -->
+    <div class="faq-level-header">Advanced Questions</div>
+    <div class="faq-questions-section">
+      <div *ngFor="let faq of advancedFaqs; let i = index" class="faq-item">
+        <div class="faq-question" (click)="toggleFAQ('advanced', i)">
+          {{ faq.question }}
+        </div>
+        <div class="faq-answer" *ngIf="faq.open">
+          {{ faq.answer }}
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  

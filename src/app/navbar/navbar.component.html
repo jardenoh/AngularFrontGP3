@@ -1,10 +1,20 @@
-<mat-toolbar color="primary" class="navbar">
-  <span class="logo">OptimalPC</span>
-  <div class="nav-buttons">
-    <button mat-button [routerLink]="['/']" fragment="">Home</button>
-    <button mat-button>Team</button>
-    <button mat-button [routerLink]="['/']" fragment="how-it-works">FAQ</button>
-    <button mat-button routerLink="/builds">Builds</button>
+<!-- Logo Bar Background -->
+<div class="logo-bar"></div>
+
+<!-- Fixed Logo -->
+<img src="assets/optimal.png" alt="Optimal Logo" class="logo-top-left" />
+
+<!-- Hamburger icon -->
+<button #hamburgerRef mat-icon-button (click)="toggleMenu()" class="hamburger-btn">
+  <mat-icon>menu</mat-icon>
+</button>
+
+<!-- Popout -->
+<div *ngIf="menuOpen" #popoutRef class="test-popout">
+  <div class="popout-buttons">
+    <button mat-button (click)="navigateTo('/')">Home</button>
+    <button mat-button (click)="navigateTo('/team')">Team</button>
+    <button mat-button (click)="navigateTo('/faq')">FAQ</button>
+    <button mat-button (click)="navigateTo('/builds')">Builds</button>
   </div>
-  <button mat-button class="login-btn">Login</button>
-</mat-toolbar>
+</div>

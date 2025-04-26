@@ -9,11 +9,31 @@
 
   <!-- Link for Poppins font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  
+
   <!-- Material icons link -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="mat-typography">
   <app-root></app-root>
+
+  <!-- FINAL SCALE + CENTER SCRIPT -->
+  <script>
+    function updateScale() {
+      const baseWidth = 1920;
+      const baseHeight = 1080;
+
+      const scale = Math.min(window.innerWidth / baseWidth, window.innerHeight / baseHeight);
+      const offsetX = (window.innerWidth - baseWidth * scale) / 2;
+      const offsetY = (window.innerHeight - baseHeight * scale) / 2;
+
+      const wrapper = document.getElementById('scale-wrapper');
+      if (wrapper) {
+        wrapper.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
+      }
+    }
+
+    window.addEventListener('resize', updateScale);
+    window.addEventListener('load', updateScale);
+  </script>
 </body>
 </html>

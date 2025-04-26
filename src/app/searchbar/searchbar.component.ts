@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
     <div class="searchbar">
       <input 
         [(ngModel)]="searchTerm" 
-        placeholder="Search PC Parts" 
+        placeholder="Search..." 
         (keyup.enter)="onSearch()" 
         class="input" />
       <button (click)="onSearch()" class="search-button">

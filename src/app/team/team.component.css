@@ -1,0 +1,118 @@
+.team-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #000000, #0a0a0a);
+  color: white;
+  min-height: 100vh;
+  text-align: center;
+  padding: 0;
+}
+
+.team-heading {
+  font-size: 42px;
+  font-weight: bold;
+  color: #faa500;
+  margin-bottom: 40px;
+}
+
+.member-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.member-name-item {
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.member-name-item:hover {
+  transform: scale(1.1);
+  color: #faa500;
+}
+
+.member-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 40px;
+}
+
+.member-card {
+  background: linear-gradient(to bottom, #000000, #0a0a0a);
+  border: 2px solid #faa500;
+  padding: 40px;
+  border-radius: 20px;
+  width: 1000px; /* ✅ Dedicated consistent size */
+  height: 800px; /* ✅ Dedicated consistent height */
+  text-align: center;
+  box-shadow: 0 0 30px #faa500;
+  position: relative;
+}
+
+/* ========== MEMBER IMAGE ========== */
+.member-image {
+  width: 900px; /* ✅ Hard set image width */
+  height: 300px; /* ✅ Hard set image height */
+  margin: 0 auto;
+  margin-bottom: 5px; /* ✅ Almost no space above the name */
+  display: block;
+  object-fit: cover; /* ✅ Fill nicely */
+  border: none;
+  box-shadow: none;
+}
+
+.member-card-name {
+  font-size: 54px;
+  color: #faa500;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.member-card-role {
+  font-size: 32px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.member-card-email {
+  font-size: 26px;
+  color: #cccccc;
+  margin-bottom: 30px;
+}
+
+.member-card-description {
+  font-size: 24px;
+  color: #dddddd;
+  margin-top: 20px;
+}
+
+.close-button {
+  margin-top: 40px;
+  background: none;
+  border: 2px solid #faa500;
+  padding: 14px 28px;
+  color: #faa500;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.close-button:hover {
+  background: #faa500;
+  color: black;
+}

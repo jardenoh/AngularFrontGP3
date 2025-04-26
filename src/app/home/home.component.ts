@@ -1,68 +1,56 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { SearchbarComponent } from '../searchbar/searchbar.component';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { filter, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SearchbarComponent],
+  imports: [CommonModule, SearchbarComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
-  images: string[] = [
-    'assets/gpu.png',
-    'assets/cpu.png',
-    'assets/motherboard.png',
-    'assets/ram.png',
-    'assets/storage.png',
-    'assets/psu.png',
-    'assets/cooler.png'
-  ];
+export class HomeComponent implements OnInit {
+  showIntro = false;
+  currentLine = 1;
 
-  currentIndex: number = 0;
-
-  @ViewChild('howItWorksSection') howItWorksSection!: ElementRef;
-
-  private destroy$ = new Subject<void>();
-
-  constructor(private route: ActivatedRoute, private router: Router) {
-    setInterval(() => {
-      this.currentIndex = (this.currentIndex + 1) % this.images.length;
-    }, 3000); // rotate every 3 seconds
-  }
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationEnd),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((event: NavigationEnd) => {
-        if (!this.route.snapshot.fragment) {
-          window.scrollTo(0, 0);
-        }
-      });
+    const alreadySeen = sessionStorage.getItem('seenIntro');
+
+    if (this.router.url === '/' && !alreadySeen) {
+      this.showIntro = true;
+
+      setTimeout(() => {
+        this.currentLine = 0;
+      }, 1800);
+
+      setTimeout(() => {
+        this.currentLine = 2;
+      }, 2100);
+
+      setTimeout(() => {
+        this.showIntro = false;
+        sessionStorage.setItem('seenIntro', 'true');
+        this.runScaleFix(); // ✅ run scale after intro
+      }, 4000);
+    } else {
+      this.showIntro = false;
+      this.runScaleFix(); // ✅ run scale if no intro
+    }
   }
 
-  ngAfterViewInit(): void {
-    this.route.fragment
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(fragment => {
-        if (fragment === 'how-it-works' && this.howItWorksSection) {
-          this.howItWorksSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
+  scrollToFAQ(): void {
+    this.router.navigate(['/faq']);
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  private runScaleFix(): void {
+    setTimeout(() => {
+      const scaleUpdate = (window as any).updateScale;
+      if (typeof scaleUpdate === 'function') {
+        scaleUpdate();
+      }
+    }, 0);
   }
 }

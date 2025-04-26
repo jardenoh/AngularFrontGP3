@@ -1,250 +1,262 @@
-/* home.component.css */
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow-y: auto;
-  font-family: 'Georgia', serif;
+/* ========== INTRO SCREEN ========= */
+.intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #111111 0%, #000000 100%);
+  overflow: hidden;
 }
 
+.intro-screen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300%;
+  height: 300%;
+  background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
+  opacity: 0.03;
+  animation: drift 60s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.intro-line {
+  position: absolute;
+  font-size: 56px;
+  color: #faa500;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.intro-line.visible {
+  opacity: 1;
+}
+
+/* ========== SCALE WRAPPER ========= */
+#scale-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* ========== FIXED LAYOUT ========= */
 .main-container {
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 60px 20px 100px;
-  width: 100vw;
-  min-height: 100vh;
-  box-sizing: border-box;
+  position: relative;
+}
+
+.intro-animation-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 80px;
 }
 
-/* Content: Top Section */
-.content-container {
+/* ========== LEFT TEXT ========= */
+.left-middle {
+  width: 650px;
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; /* responsive */
-  width: 100%;
-  gap: 40px;
+  align-items: flex-start;
+  transform: translateX(-150px);
+  opacity: 0;
+  animation: slideLeftIn 1.2s ease-out forwards;
+  animation-delay: 0.3s;
 }
 
-/* Left Side */
-.text-search-container {
+.left-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px; /* was 60px */
+}
+
+.intro-subline {
+  font-size: 26px;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  color: white;
+}
+
+/* ========== HOW IT WORKS BUTTON (restyled) ========= */
+.how-it-works-button {
+  margin-top: 80px;
+  background: none;
+  color: #faa500;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  border-radius: 0;
+  padding: 12px 32px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.how-it-works-button::before,
+.how-it-works-button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #faa500;
+  transform: scaleX(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.how-it-works-button::before {
+  top: 0;
+  transform-origin: left;
+}
+
+.how-it-works-button::after {
+  bottom: 0;
+  transform-origin: right;
+}
+
+.how-it-works-button:hover::before {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+.how-it-works-button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ========== CENTER DIVIDER ========= */
+.center-vertical-line {
+  width: 4px;
+  height: 500px;
+  background-color: #faa500;
+  opacity: 0;
+  animation: pulseOrange 2s infinite ease-in-out, fadeInInstant 0s forwards;
+  animation-delay: 0.3s, 0.3s;
+  box-shadow: 0 0 8px #faa500, 0 0 12px #faa500, 0 0 16px #faa500;
+}
+
+/* ========== RIGHT IMAGE + SEARCH ========= */
+.right-middle {
+  width: 700px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 40%;
-  min-width: 300px;
-  padding: 15px;
-}
-
-.text-search-container .paragraph {
-  font-size: 20px;
-  line-height: 1.6;
-  text-align: left;
-  margin-bottom: 20px;
-}
-
-/* Carousel (Right Side) */
-.carousel-wrapper {
-  width: 40vw;
-  max-width: 600px;
-  aspect-ratio: 16/9;
-  overflow: hidden;
-  border-radius: 12px;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  border: 3px solid #cd7f32;
-  box-shadow: 0 4px 12px rgba(205, 127, 50, 0.3);
+  transform: translateX(120px);
+  opacity: 0;
+  animation: slideRightIn 1.2s ease-out forwards;
+  animation-delay: 0.3s;
 }
 
-.carousel-slide img {
-  width: 100%;
-  height: 100%;
+.static-image {
+  width: 600px;
+  height: auto;
   object-fit: contain;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transform: translateX(-50px) translateY(-30px);
 }
 
-/* Searchbar */
-.searchbar-container {
-  width: 100%;
-  max-width: 600px;
-}
-
-/* How It Works - Flipping Cards */
-.how-it-works {
-  width: 100%;
-  text-align: center;
-  color: #cd7f32;
-  font-size: 30px;
-}
-
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 30px;
-}
-
-.card {
-  width: 300px;
-  height: 300px;
-  background-color: #1e1e1e; /* Dark background */
-  border: 2px solid #cd7f32; /* Gold border */
-  border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(205, 127, 50, 0.2);
-  transition: all 0.4s;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.4s ease; /* <-- this enables smooth scaling */
-}
-
-.first-content, .second-content {
-  position: absolute; /* Add this */
-  top: 0;
-  left: 0;
-  height: 100%; /* Always full card height */
+.searchbar-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-radius: 16px;
-  transition: all 0.4s ease;
+  transform: translateY(-20px);
 }
 
-.card:hover {
-  transform: scale(1.05); /* <-- this makes the card grow on hover */
-
-}
-
-/* Only the opacity will change on hover now */
-.first-content {
-  opacity: 1;
-  z-index: 2; /* Keep it on top initially */
-  font-size: 20px;
-  color: #ffffff;
-}
-
-.card:hover .first-content {
-  opacity: 0;
-}
-
-.second-content {
-  opacity: 0;
-  z-index: 1;
-  transform: rotateY(180deg); /* Optional: prepares for 3D flip if you want */
-  font-size: 20px;
-  color: #1e1e1e;
-}
-
-.card:hover .second-content {
-  opacity: 1;
-  transform: rotateY(0deg); /* Optional: prepares for 3D flip if you want */
-  background-color: #cd7f32;
-}
-
-/* Text styles inside cards stay the same */
-.first-content h3, .second-content p {
-  text-align: center;
-  margin: 0;
-}
-
-.FAQ {
-  font-size: 20px;
-  line-height: 1.6;
-  text-align: left;
-  margin: 30px;
-  padding: 50px;
-}
-
-.FAQ h1 {
+app-searchbar {
   width: 100%;
-  text-align: left;
-  color: #cd7f32;
-}
-
-/* Back to Top Button Styles */
-.bottom-build-pc {
+  max-width: 1400px;
   display: flex;
-  justify-content: center; /* Center the button horizontally */
-  padding: 20px 0; /* Add some padding above and below the button */
-  width: 100%; /* Make the container span the full width */
-  font: 'Poppins', sans-serif;
+  justify-content: center;
 }
 
-.bottom-build-pc button {
-  position: relative;
-  padding: 10px 20px;
-  border-radius: 7px;
-  border: 1px solid #faa500;
-  font-size: 14px;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 2px;
-  background: transparent;
-  color: #fff;
-  overflow: hidden;
-  box-shadow: 0 0 0 0 transparent;
-  -webkit-transition: all 0.2s ease-in;
-  -moz-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-}
-
-.bottom-build-pc button:hover {
-  background: #faa500;
-  box-shadow: 0 0 30px 5px #faa500;
-  -webkit-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
-
-.bottom-build-pc button:hover::before {
-  -webkit-animation: sh02 0.5s 0s linear;
-  -moz-animation: sh02 0.5s 0s linear;
-  animation: sh02 0.5s 0s linear;
-}
-
-.bottom-build-pc button::before {
-  content: '';
-  display: block;
-  width: 0px;
-  height: 86%;
-  position: absolute;
-  top: 7%;
-  left: 0%;
-  opacity: 0;
-  background: #fff;
-  box-shadow: 0 0 50px 30px #fff;
-  -webkit-transform: skewX(-20deg);
-  -moz-transform: skewX(-20deg);
-  -ms-transform: skewX(-20deg);
-  -o-transform: skewX(-20deg);
-  transform: skewX(-20deg);
-}
-
-@keyframes sh02 {
-  from {
-    opacity: 0;
-    left: 0%;
+/* ========== ANIMATIONS ========= */
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
   }
+  100% {
+    transform: translate(-100px, -100px);
+  }
+}
 
+@keyframes pulseOrange {
+  0% {
+    background-color: #faa500;
+    box-shadow: 0 0 8px #faa500, 0 0 12px #faa500, 0 0 16px #faa500;
+  }
   50% {
+    background-color: #faa500;
+    box-shadow: 0 0 12px #faa500, 0 0 16px #faa500, 0 0 20px #faa500;
+  }
+  100% {
+    background-color: #faa500;
+    box-shadow: 0 0 8px #faa500, 0 0 12px #faa500, 0 0 16px #faa500;
+  }
+}
+
+@keyframes slideLeftIn {
+  0% {
+    opacity: 0;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-150px);
+  }
+}
+
+@keyframes slideRightIn {
+  0% {
+    opacity: 0;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(120px);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInInstant {
+  to {
     opacity: 1;
   }
-
-  to {
-    opacity: 0;
-    left: 100%;
-  }
 }
-
-.bottom-build-pc button:active {
-  box-shadow: 0 0 0 0 transparent;
-  -webkit-transition: box-shadow 0.2s ease-in;
-  -moz-transition: box-shadow 0.2s ease-in;
-  transition: box-shadow 0.2s ease-in;
-}
-

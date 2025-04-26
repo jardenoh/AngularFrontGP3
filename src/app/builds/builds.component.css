@@ -1,8 +1,9 @@
-/* Global Reset */
+/* ========== GLOBAL RESET ========== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  caret-color: transparent !important;
 }
 
 html, body {
@@ -13,18 +14,23 @@ html, body {
   background: linear-gradient(0deg, #000000 50%, #2a2a2a 150%, #b0b0b0 150%);
   background-attachment: fixed;
   color: white;
-}
-
-/* Full Page Container */
-.build-page {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
-/* Inner wrapper */
+/* ========== BUILD PAGE LAYOUT ========== */
+.build-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+}
+
 .pc-parts {
   display: flex;
   justify-content: center;
@@ -34,7 +40,7 @@ html, body {
   width: 100%;
 }
 
-/* Typing Box */
+/* ========== TYPING BOX ========== */
 .button-box {
   display: flex;
   flex-direction: column;
@@ -52,9 +58,10 @@ html, body {
   padding: 40px;
   text-align: center;
   overflow: hidden;
+  position: relative;
 }
 
-/* Typing Text */
+/* ========== TEXT INSIDE TYPING BOX ========== */
 .typing-box {
   font-size: 2rem;
   font-weight: 500;
@@ -69,69 +76,135 @@ html, body {
   margin-top: 30px;
 }
 
-/* Recommended Part Section */
-.part-section {
+/* ========== SEARCHING TEXT (AT BOTTOM INSIDE BOX) ========== */
+.searching-text {
+  position: absolute;
+  bottom: 20px; /* Space from the bottom of the box */
+  left: 50%;
+  transform: translateX(-50%); /* Center it perfectly horizontally */
+  font-size: 2.5rem; /* Adjusted size */
+  color: white;
+  text-align: center;
+  animation: fadeIn 1s ease forwards;
+  margin-top: 20px; /* Space between the paragraph and searching text */
+}
+
+/* ========== FADE-IN ONLY ON TEXT ========= */
+.fade-text {
+  display: inline-block;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== RECOMMENDED PARTS ========= */
+.recommended-wrapper {
+  height: 100%;
   width: 100%;
-  max-width: 1300px;
-  padding: 30px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-.part-section h2 {
-  margin-bottom: 10px;
-  font-size: 2.4rem;
+.recommended-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommended-block h2 {
+  font-size: 2rem;
   color: #FFA500;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .subtext {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #dddddd;
-  margin-top: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   text-align: center;
-  max-width: 800px;
 }
 
-/* Part Cards Layout */
 .part-row {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 50px;
-  flex-wrap: wrap;
 }
 
-/* Part Card Box */
+/* ========== FINAL SUMMARY ========== */
+.part-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: calc(100vh - 160px);
+  padding: 40px;
+  padding-top: 100px;
+  text-align: center;
+}
+
+.part-section h2 {
+  font-size: 2rem;
+  color: #FFA500;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.summary-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 24px 24px;
+  width: 100%;
+  max-width: 1600px;
+  padding: 0 40px;
+  margin: auto;
+  justify-items: center;
+  align-items: start;
+  height: 100%;
+}
+
 .part-card {
   background-color: #000;
   border: 3px solid #FFA500;
   border-radius: 16px;
-  padding: 40px;
-  width: 460px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   color: white;
   text-align: left;
-  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1.4;
   transition: transform 0.2s ease;
-  font-size: 1.5rem;
-  line-height: 2;
+  width: 100%;
+  min-height: 280px;
+  max-height: 300px;
+  flex-basis: 250px;
 }
 
 .part-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
   background-color: #111;
 }
 
-/* 🎯 Summary card formatting improvements */
 .part-card h3 {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   color: #FFA500;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
 .part-card div {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .part-card strong {
@@ -141,5 +214,36 @@ html, body {
 
 .part-card em {
   color: #aaa;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #222;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ========== ORANGE PULSE ========== */
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 10px #FFA500;
+  }
+  50% {
+    box-shadow: 0 0 25px #FFA500;
+  }
+  100% {
+    box-shadow: 0 0 10px #FFA500;
+  }
+}
+
+.button-box.pulsing {
+  animation: pulse-glow 1.5s infinite;
 }
