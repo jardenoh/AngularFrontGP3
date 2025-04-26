@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { LoadingService } from '../loading.service';  // Correct import path for LoadingService
+import { LoadingService } from '../loading.service';
 
 @Component({
   selector: 'app-builds',
@@ -11,7 +11,7 @@ import { LoadingService } from '../loading.service';  // Correct import path for
   templateUrl: './builds.component.html',
   styleUrls: ['./builds.component.css']
 })
-export class BuildsComponent implements OnInit {
+export class BuildsComponent implements OnInit, OnDestroy {
   searchTerm: string = '';
   typedText: string = '';
   typedResponse: string = '';
@@ -80,46 +80,41 @@ export class BuildsComponent implements OnInit {
 
   amazonCartLink: string = '';
 
+  // Dots for "Searching for parts..."
+  loadingDots: string = '';
+  private dotsInterval: any;
+
   constructor(private route: ActivatedRoute, private http: HttpClient, private loadingService: LoadingService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const rawSearch = params['search'] || '';
       this.searchTerm = rawSearch;
-      this.startTypingSearch();
+      this.startSearchInstant();
     });
+
+    this.startDotsAnimation();
   }
 
-  startTypingSearch() {
-    let i = 0;
-    this.typedText = '';
-    this.typedResponse = '';
+  ngOnDestroy() {
+    clearInterval(this.dotsInterval);
+  }
 
-    const typeSearch = () => {
-      if (i < this.searchTerm.length) {
-        this.typedText += this.searchTerm.charAt(i);
-        i++;
-        setTimeout(typeSearch, this.typingSpeed);
+  startDotsAnimation() {
+    let dotCount = 0;
+    this.dotsInterval = setInterval(() => {
+      if (this.awaitingResponse.size > 0) {
+        dotCount = (dotCount + 1) % 4;
+        this.loadingDots = '.'.repeat(dotCount);
       } else {
-        setTimeout(() => this.startTypingResponse(), 500);
+        this.loadingDots = '';
       }
-    };
-
-    typeSearch();
+    }, 500);
   }
 
-  startTypingResponse() {
-    let j = 0;
-    const message = this.responseMessage;
-    const typeResponse = () => {
-      if (j < message.length) {
-        this.typedResponse += message.charAt(j);
-        j++;
-        setTimeout(typeResponse, this.typingSpeed);
-      }
-    };
-
-    typeResponse();
+  startSearchInstant() {
+    this.typedText = this.searchTerm;
+    this.typedResponse = this.responseMessage;
   }
 
   onBoxClick() {
@@ -134,32 +129,19 @@ export class BuildsComponent implements OnInit {
     if (!part) return;
 
     this.currentPart = part.name;
-    this.typedDescription = '';
     this.showDescriptionTyping = true;
     this.showParts = false;
     this.descriptionDone = false;
     this.backendDone = false;
 
-    this.startTypingDescription(part.description);
+    this.showDescriptionInstant(part.description);
     this.onPartClick(part);
   }
 
-  startTypingDescription(text: string) {
-    let k = 0;
-    this.typedDescription = '';
-
-    const typeDesc = () => {
-      if (k < text.length) {
-        this.typedDescription += text.charAt(k);
-        k++;
-        setTimeout(typeDesc, this.typingSpeed);
-      } else {
-        this.descriptionDone = true;
-        this.tryShowParts();
-      }
-    };
-
-    typeDesc();
+  showDescriptionInstant(text: string) {
+    this.typedDescription = text;
+    this.descriptionDone = true;
+    this.tryShowParts();
   }
 
   onPartClick(part: any): void {
@@ -203,10 +185,9 @@ export class BuildsComponent implements OnInit {
 
   tryShowParts(): void {
     if (this.backendDone && this.descriptionDone) {
-      setTimeout(() => {
-        this.showDescriptionTyping = false;
-        this.showParts = true;
-      }, 1000);
+      // NO delay anymore
+      this.showDescriptionTyping = false;
+      this.showParts = true;
     }
   }
 
@@ -258,11 +239,9 @@ export class BuildsComponent implements OnInit {
       }
     }
 
-    // Remove trailing "&" from the link
     this.amazonCartLink = cartLink.slice(0, -1);
   }
 
-  // Add the spinner conditionally
   getSpinnerVisibility(): boolean {
     return this.awaitingResponse.size > 0;
   }

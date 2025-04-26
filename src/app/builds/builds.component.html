@@ -3,18 +3,23 @@
 
     <!-- Initial Typing -->
     <div class="button-box" *ngIf="showTyping" (click)="onBoxClick()" [ngClass]="{ 'pulsing': getSpinnerVisibility() }">
-      <div class="typing-box">{{ typedText }}</div>
-      <div class="typing-box response">{{ typedResponse }}</div>
+      <div class="typing-box"><span class="fade-text">{{ typedText }}</span></div>
+      <div class="typing-box response"><span class="fade-text">{{ typedResponse }}</span></div>
+
+      <!-- Searching for parts inside the box at the bottom -->
+      <div *ngIf="getSpinnerVisibility()" class="searching-text">
+        <span class="fade-text">Searching for parts{{ loadingDots }}</span>
+      </div>
     </div>
 
     <!-- Typing Description -->
     <div class="button-box" *ngIf="showDescriptionTyping" [ngClass]="{ 'pulsing': getSpinnerVisibility() }">
-      <div class="typing-box">{{ typedDescription }}</div>
-    </div>
+      <div class="typing-box"><span class="fade-text">{{ typedDescription }}</span></div>
 
-    <!-- Spinner reserved space to prevent layout shift -->
-    <div class="spinner-wrapper">
-      <div *ngIf="getSpinnerVisibility()" class="spinner"></div>
+      <!-- Searching for parts inside the box at the bottom -->
+      <div *ngIf="getSpinnerVisibility()" class="searching-text">
+        <span class="fade-text">Searching for parts{{ loadingDots }}</span>
+      </div>
     </div>
 
     <!-- Part Options (Recommended Parts Section) -->

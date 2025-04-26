@@ -1,0 +1,28 @@
+<div class="team-container">
+  <h1 class="team-heading">Our Team</h1>
+
+  <div class="member-list">
+    <div 
+      *ngFor="let member of teamMembers" 
+      class="member-name-item" 
+      (click)="selectMember(member)">
+      {{ member.name }}
+    </div>
+  </div>
+
+  <div *ngIf="selectedMember" class="member-overlay" (click)="closeOverlay()">
+    <div class="member-card" (click)="$event.stopPropagation()">
+      <img 
+        *ngIf="selectedMember.image" 
+        [src]="selectedMember.image" 
+        alt="Profile image" 
+        class="member-image" />
+
+      <h2 class="member-card-name">{{ selectedMember.name }}</h2>
+      <p class="member-card-role">{{ selectedMember.role }}</p>
+      <p class="member-card-email">Email: {{ selectedMember.email }}</p>
+      <p class="member-card-description">{{ selectedMember.description }}</p>
+      <button class="close-button" (click)="closeOverlay()">Close</button>
+    </div>
+  </div>
+</div>
