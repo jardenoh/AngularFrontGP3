@@ -1,10 +1,7 @@
-/* ========== INTRO SCREEN ========= */
+/* INTRO SCREEN */
 .intro-screen {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0;
   z-index: 9999;
   pointer-events: none;
   display: flex;
@@ -13,12 +10,10 @@
   background: radial-gradient(circle at center, #111111 0%, #000000 100%);
   overflow: hidden;
 }
-
 .intro-screen::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 300%;
   height: 300%;
   background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
@@ -27,236 +22,142 @@
   pointer-events: none;
   z-index: 1;
 }
-
 .intro-line {
   position: absolute;
-  font-size: 56px;
+  font-size: 2.92vw;
   color: #faa500;
   opacity: 0;
   transition: opacity 0.4s ease;
-  z-index: 2;
 }
-
 .intro-line.visible {
   opacity: 1;
 }
 
-/* ========== SCALE WRAPPER ========= */
-#scale-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 1920px;
-  height: 1080px;
-  transform-origin: top left;
-  overflow: hidden;
-  z-index: 1;
-}
-
-/* ========== FIXED LAYOUT ========= */
+/* MAIN CONTENT */
 .main-container {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
-
 .intro-animation-wrapper {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 80px;
+  gap: 4.17vw;
 }
 
-/* ========== LEFT TEXT ========= */
+/* LEFT PANEL */
 .left-middle {
-  width: 650px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  transform: translateX(-150px);
+  width: 33.85vw;
+  transform: translateX(5vw);
   opacity: 0;
-  animation: slideLeftIn 1.2s ease-out forwards;
+  animation: slideLeftOut 1.2s ease-out forwards;
   animation-delay: 0.3s;
 }
-
 .left-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 100px; /* was 60px */
+  margin-top: 9.26vh;
 }
-
 .intro-subline {
-  font-size: 26px;
+  font-size: 1.35vw;
   line-height: 1.5;
   letter-spacing: 0.5px;
   text-align: center;
-  margin: 0;
-  padding: 0;
   width: 100%;
   color: white;
 }
 
-/* ========== HOW IT WORKS BUTTON (restyled) ========= */
+/* BUTTON */
 .how-it-works-button {
-  margin-top: 80px;
+  margin-top: 7.41vh;
   background: none;
   color: #faa500;
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-size: 1.04vw;
   border: none;
-  border-radius: 0;
-  padding: 12px 32px;
+  padding: 1.11vh 1.67vw;
   cursor: pointer;
   position: relative;
-  transition: all 0.3s ease;
   text-align: center;
 }
-
 .how-it-works-button::before,
 .how-it-works-button::after {
   content: '';
   position: absolute;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 0.21vw;
   background: #faa500;
   transform: scaleX(0);
   transition: transform 0.5s ease-in-out;
 }
+.how-it-works-button::before { top: 0; transform-origin: left; }
+.how-it-works-button::after  { bottom: 0; transform-origin: right; }
+.how-it-works-button:hover::before { transform: scaleX(1); }
+.how-it-works-button:hover::after  { transform: scaleX(1); }
 
-.how-it-works-button::before {
-  top: 0;
-  transform-origin: left;
-}
-
-.how-it-works-button::after {
-  bottom: 0;
-  transform-origin: right;
-}
-
-.how-it-works-button:hover::before {
-  transform: scaleX(1);
-  transform-origin: right;
-}
-
-.how-it-works-button:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-/* ========== CENTER DIVIDER ========= */
+/* CENTER DIVIDER */
 .center-vertical-line {
-  width: 4px;
-  height: 500px;
+  width: 0.21vw;
+  height: 46.3vh;
   background-color: #faa500;
-  opacity: 0;
   animation: pulseOrange 2s infinite ease-in-out, fadeInInstant 0s forwards;
-  animation-delay: 0.3s, 0.3s;
-  box-shadow: 0 0 8px #faa500, 0 0 12px #faa500, 0 0 16px #faa500;
+  animation-delay: 0.3s;
+  box-shadow: 0 0 0.42vw #faa500, 0 0 0.63vw #faa500, 0 0 0.83vw #faa500;
 }
 
-/* ========== RIGHT IMAGE + SEARCH ========= */
+/* RIGHT PANEL */
 .right-middle {
-  width: 700px;
+  width: 36.46vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  transform: translateX(120px);
+  margin-top: -4vh;
+  transform: translateX(-3.5vw);
   opacity: 0;
-  animation: slideRightIn 1.2s ease-out forwards;
+  animation: slideRightOut 1.2s ease-out forwards;
   animation-delay: 0.3s;
 }
-
 .static-image {
-  width: 600px;
-  height: auto;
+  width: 31.25vw;
   object-fit: contain;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  transform: translateX(-50px) translateY(-30px);
+  border-radius: 0.52vw;
+  margin-bottom: 1vh;
+  margin-left: -5vw; /* ⬅️ shifted image left */
 }
-
 .searchbar-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
-  transform: translateY(-20px);
 }
 
-app-searchbar {
-  width: 100%;
-  max-width: 1400px;
-  display: flex;
-  justify-content: center;
-}
-
-/* ========== ANIMATIONS ========= */
+/* ANIMATIONS */
 @keyframes drift {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(-100px, -100px);
-  }
+  0% { transform: translate(0,0); }
+ 100% { transform: translate(-100px,-100px); }
 }
-
-@keyframes pulseOrange {
-  0% {
-    background-color: #faa500;
-    box-shadow: 0 0 8px #faa500, 0 0 12px #faa500, 0 0 16px #faa500;
-  }
-  50% {
-    background-color: #faa500;
-    box-shadow: 0 0 12px #faa500, 0 0 16px #faa500, 0 0 20px #faa500;
-  }
-  100% {
-    background-color: #faa500;
-    box-shadow: 0 0 8px #faa500, 0 0 12px #faa500, 0 0 16px #faa500;
-  }
-}
-
-@keyframes slideLeftIn {
-  0% {
-    opacity: 0;
-    transform: translateX(0px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-150px);
-  }
-}
-
-@keyframes slideRightIn {
-  0% {
-    opacity: 0;
-    transform: translateX(0px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(120px);
-  }
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInInstant {
+@keyframes slideLeftOut {
   to {
     opacity: 1;
+    transform: translateX(-5vw);
   }
+}
+@keyframes slideRightOut {
+  to {
+    opacity: 1;
+    transform: translateX(3.5vw);
+  }
+}
+@keyframes pulseOrange {
+  50% {
+    box-shadow: 0 0 0.63vw #faa500, 0 0 0.83vw #faa500, 0 0 1.04vw #faa500;
+  }
+}
+@keyframes fadeInInstant {
+  to { opacity: 1; }
 }

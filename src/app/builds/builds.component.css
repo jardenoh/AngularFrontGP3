@@ -1,4 +1,4 @@
-/* ========== GLOBAL RESET ========== */
+/* GLOBAL RESET */
 * {
   margin: 0;
   padding: 0;
@@ -9,87 +9,66 @@
 html, body {
   height: 100%;
   width: 100%;
-  overflow: hidden;
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(0deg, #000000 50%, #2a2a2a 150%, #b0b0b0 150%);
-  background-attachment: fixed;
   color: white;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/* ========== BUILD PAGE LAYOUT ========== */
+/* BUILD PAGE LAYOUT */
 .build-page {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  position: relative;
 }
 
 .pc-parts {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
-/* ========== TYPING BOX ========== */
+/* TYPING BOX */
 .button-box {
+  width: 60vw;
+  max-width: 900px;
+  height: 50vh;
+  max-height: 500px;
+  background: #000;
+  border: 0.19vh solid #FFA500;
+  border-radius: 1vh;
+  padding: 3.7vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background-color: #000;
-  border-radius: 10px;
-  border: 2px solid #FFA500;
-  color: white;
-  cursor: pointer;
-  width: 60vw;
-  height: 50vh;
-  max-width: 900px;
-  max-height: 500px;
-  padding: 40px;
-  text-align: center;
-  overflow: hidden;
+  justify-content: center;
   position: relative;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-/* ========== TEXT INSIDE TYPING BOX ========== */
 .typing-box {
-  font-size: 2rem;
+  font-size: 2.5vh;
   font-weight: 500;
   text-align: center;
   width: 100%;
-  white-space: normal;
   word-wrap: break-word;
-  overflow: hidden;
 }
 
 .typing-box.response {
-  margin-top: 30px;
+  margin-top: 2.5vh;
 }
 
-/* ========== SEARCHING TEXT (AT BOTTOM INSIDE BOX) ========== */
-.searching-text {
-  position: absolute;
-  bottom: 20px; /* Space from the bottom of the box */
-  left: 50%;
-  transform: translateX(-50%); /* Center it perfectly horizontally */
-  font-size: 2.5rem; /* Adjusted size */
-  color: white;
-  text-align: center;
-  animation: fadeIn 1s ease forwards;
-  margin-top: 20px; /* Space between the paragraph and searching text */
-}
-
-/* ========== FADE-IN ONLY ON TEXT ========= */
+/* FADE-IN TEXT */
 .fade-text {
   display: inline-block;
   opacity: 0;
@@ -97,114 +76,95 @@ html, body {
 }
 
 @keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(10px); }
+  0% { opacity: 0; transform: translateY(1vh); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* ========== RECOMMENDED PARTS ========= */
+/* SEARCHING TEXT */
+.searching-text {
+  position: absolute;
+  bottom: 2.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3vh;
+  text-align: center;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* SELECT PARTS BUTTON */
+.select-wrapper {
+  margin-top: 2vh;
+  text-align: center;
+  min-height: 6vh;
+}
+
+.select-parts-button {
+  padding: 1.3vh 2.5vw;
+  font-size: 2vh;
+  background: none;
+  border: 0.19vh solid #FFA500;
+  border-radius: 1vh;
+  color: #FFA500;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.select-parts-button:hover {
+  background: #FFA500;
+  color: black;
+}
+
+/* RECOMMENDED PARTS */
 .recommended-wrapper {
-  height: 100%;
-  width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 .recommended-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.recommended-block h2 {
-  font-size: 2rem;
-  color: #FFA500;
-  margin-bottom: 10px;
   text-align: center;
-}
-
-.subtext {
-  font-size: 1.2rem;
-  color: #dddddd;
-  margin-bottom: 30px;
-  text-align: center;
+  margin-top: 6vh;
+  margin-bottom: 6vh;
 }
 
 .part-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-}
-
-/* ========== FINAL SUMMARY ========== */
-.part-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  height: calc(100vh - 160px);
-  padding: 40px;
-  padding-top: 100px;
-  text-align: center;
-}
-
-.part-section h2 {
-  font-size: 2rem;
-  color: #FFA500;
-  margin-bottom: 30px;
-  text-align: center;
-}
-
-.summary-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-  gap: 24px 24px;
+  grid-template-columns: repeat(auto-fit, minmax(18vw, 1fr));
+  gap: 3vw;
+  justify-content: center;
   width: 100%;
-  max-width: 1600px;
-  padding: 0 40px;
-  margin: auto;
-  justify-items: center;
-  align-items: start;
-  height: 100%;
+  max-width: 90vw;
+  margin: 0 auto;
 }
 
+/* CARD STYLE */
 .part-card {
-  background-color: #000;
-  border: 3px solid #FFA500;
-  border-radius: 16px;
-  padding: 16px;
+  background: #000;
+  border: 0.28vh solid #FFA500;
+  border-radius: 1.5vh;
+  padding: 2vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
+  gap: 1vh;
   color: white;
-  text-align: left;
-  font-size: 1rem;
-  line-height: 1.4;
   transition: transform 0.2s ease;
   width: 100%;
-  min-height: 280px;
-  max-height: 300px;
-  flex-basis: 250px;
+  height: 35vh;
+  box-sizing: border-box;
 }
 
 .part-card:hover {
   transform: scale(1.03);
-  background-color: #111;
+  background: #111;
 }
 
 .part-card h3 {
-  font-size: 1.2rem;
+  font-size: 2vh;
   color: #FFA500;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.part-card div {
-  margin-bottom: 6px;
+  margin-bottom: 1vh;
 }
 
 .part-card strong {
@@ -214,34 +174,43 @@ html, body {
 
 .part-card em {
   color: #aaa;
-  font-size: 0.9rem;
+  font-size: 1.6vh;
 }
 
-/* ========== FOOTER ========== */
-.footer {
-  position: fixed;
-  bottom: 0;
+/* FINAL SUMMARY */
+.part-container {
   width: 100%;
-  height: 80px;
-  background-color: #222;
-  color: white;
+  padding: 5vh 4vw 6vh 4vw;
   text-align: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
+  flex: 1;
 }
 
-/* ========== ORANGE PULSE ========== */
+.summary-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18vw, 1fr));
+  gap: 3vw;
+  justify-content: center;
+  width: 100%;
+  max-width: 90vw;
+  margin: 0 auto;
+  margin-top: 4vh;
+}
+
+.part-container .part-card {
+  height: 30vh;
+  align-items: center;
+  text-align: center;
+}
+
+/* ORANGE PULSE */
 @keyframes pulse-glow {
-  0% {
-    box-shadow: 0 0 10px #FFA500;
-  }
-  50% {
-    box-shadow: 0 0 25px #FFA500;
-  }
-  100% {
-    box-shadow: 0 0 10px #FFA500;
-  }
+  0% { box-shadow: 0 0 1vh #FFA500; }
+  50% { box-shadow: 0 0 2.5vh #FFA500; }
+  100% { box-shadow: 0 0 1vh #FFA500; }
 }
 
 .button-box.pulsing {

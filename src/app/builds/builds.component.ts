@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { LoadingService } from '../loading.service';
 
 @Component({
   selector: 'app-builds',
@@ -12,33 +11,33 @@ import { LoadingService } from '../loading.service';
   styleUrls: ['./builds.component.css']
 })
 export class BuildsComponent implements OnInit, OnDestroy {
-  searchTerm: string = '';
-  typedText: string = '';
-  typedResponse: string = '';
-  typedDescription: string = '';
+  searchTerm = '';
+  typedText = '';
+  typedResponse = '';
+  typedDescription = '';
 
-  showTyping: boolean = true;
-  showDescriptionTyping: boolean = false;
-  showParts: boolean = false;
-  showSummary: boolean = false;
+  showTyping = true;
+  showDescriptionTyping = false;
+  showParts = false;
+  showSummary = false;
+  readyToSelect = false;
 
-  responseMessage: string = "Great, based off of your needs, let's start picking your CPU! Click to continue.";
-  typingSpeed: number = 55;
-  currentPart: string = '';
+  responseMessage = "Great, based off of your needs, let's start picking your CPU! Click to continue.";
+  currentPart = '';
+  partIndex = 0;
 
-  descriptionDone: boolean = false;
-  backendDone: boolean = false;
-
-  partIndex: number = 0;
+  awaitingResponse = new Set<string>();
+  loadingDots = '';
+  private dotsInterval: any;
 
   pcParts = [
-    { name: 'CPU', description: 'The CPU (Central Processing Unit) is the brain of your computer. It performs calculations, runs programs, and determines how fast and powerful your system feels.' },
-    { name: 'Motherboard', description: 'The motherboard connects all the components of your PC and determines what upgrades and features are supported.' },
-    { name: 'Memory (RAM)', description: 'RAM temporarily stores data your PC is actively using. More RAM allows for smoother multitasking and faster performance.' },
-    { name: 'Storage (HDD/SSD)', description: 'Storage is where your files, games, and operating system live. SSDs are much faster than traditional hard drives.' },
-    { name: 'GPU', description: 'The GPU (Graphics Processing Unit) is responsible for rendering visuals, running games, and handling graphical workloads.' },
-    { name: 'Power Supply Unit (PSU)', description: 'The PSU provides power to all components and ensures safe and efficient energy delivery.' },
-    { name: 'Cooling System (Fans, Heatsinks)', description: 'Cooling solutions keep your PC from overheating and help maintain peak performance.' },
+    { name: 'CPU', description: 'The CPU (Central Processing Unit) is the brain of your computer...' },
+    { name: 'Motherboard', description: 'The motherboard connects all the components of your PC...' },
+    { name: 'Memory (RAM)', description: 'RAM temporarily stores data your PC is actively using...' },
+    { name: 'Storage (HDD/SSD)', description: 'Storage is where your files, games, and OS live...' },
+    { name: 'GPU', description: 'The GPU renders visuals and handles graphics workloads...' },
+    { name: 'Power Supply Unit (PSU)', description: 'The PSU provides power to all components...' },
+    { name: 'Cooling System (Fans, Heatsinks)', description: 'Cooling solutions keep your PC from overheating...' }
   ];
 
   selectedParts: { [key: string]: any } = {
@@ -52,47 +51,40 @@ export class BuildsComponent implements OnInit, OnDestroy {
   };
 
   results: { [partName: string]: any[] } = {};
-  awaitingResponse: Set<string> = new Set<string>();
-
-  backendKeys: { [displayName: string]: string } = {
-    'CPU': 'cpu',
-    'Motherboard': 'motherboard',
+  backendKeys: { [name: string]: string } = {
+    CPU: 'cpu',
+    Motherboard: 'motherboard',
     'Memory (RAM)': 'ram',
     'Storage (HDD/SSD)': 'storage',
-    'GPU': 'gpu',
+    GPU: 'gpu',
     'Power Supply Unit (PSU)': 'psu',
     'Cooling System (Fans, Heatsinks)': 'cpucooler',
-    'CPU Cooler': 'cpucooler',
-    'Memory': 'ram',
-    'Power Supply': 'psu',
-    'CPU Cooling': 'cpucooler'
+    'CPU Cooler': 'cpucooler'
   };
 
   displayFields: { [partName: string]: string[] } = {
-    'CPU': ['name', 'price', 'core_count', 'core_clock', 'boost_clock'],
-    'Motherboard': ['name', 'price', 'socket', 'form_factor', 'memory_slots', 'max_memory'],
-    'Memory (RAM)': ['name', 'price', 'speed', 'modules', 'price_per_gb'],
-    'Storage (HDD/SSD)': ['name', 'price', 'capacity', 'form_factor', 'interface', 'type'],
-    'GPU': ['name', 'price', 'chipset', 'memory', 'core_clock', 'boost_clock', 'length'],
-    'Power Supply Unit (PSU)': ['name', 'price', 'type', 'wattage', 'efficiency', 'modular'],
-    'Cooling System (Fans, Heatsinks)': ['name', 'price', 'rpm', 'noise_level', 'size'],
+    CPU: ['name','price','core_count','core_clock','boost_clock'],
+    Motherboard: ['name','price','socket','form_factor','memory_slots','max_memory'],
+    'Memory (RAM)': ['name','price','speed','modules','price_per_gb'],
+    'Storage (HDD/SSD)': ['name','price','capacity','form_factor','interface','type'],
+    GPU: ['name','price','chipset','memory','core_clock','boost_clock','length'],
+    'Power Supply Unit (PSU)': ['name','price','type','wattage','efficiency','modular'],
+    'Cooling System (Fans, Heatsinks)': ['name','price','rpm','noise_level','size']
   };
 
-  amazonCartLink: string = '';
+  amazonCartLink = '';
 
-  // Dots for "Searching for parts..."
-  loadingDots: string = '';
-  private dotsInterval: any;
-
-  constructor(private route: ActivatedRoute, private http: HttpClient, private loadingService: LoadingService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      const rawSearch = params['search'] || '';
-      this.searchTerm = rawSearch;
-      this.startSearchInstant();
+      this.searchTerm = params['search'] || '';
+      this.typedText = this.searchTerm;
+      this.typedResponse = this.responseMessage;
     });
-
     this.startDotsAnimation();
   }
 
@@ -100,149 +92,109 @@ export class BuildsComponent implements OnInit, OnDestroy {
     clearInterval(this.dotsInterval);
   }
 
-  startDotsAnimation() {
-    let dotCount = 0;
+  isLoading(): boolean {
+    return this.awaitingResponse.size > 0;
+  }
+
+  private startDotsAnimation() {
+    let count = 0;
     this.dotsInterval = setInterval(() => {
-      if (this.awaitingResponse.size > 0) {
-        dotCount = (dotCount + 1) % 4;
-        this.loadingDots = '.'.repeat(dotCount);
+      if (this.isLoading()) {
+        count = (count + 1) % 4;
+        this.loadingDots = '.'.repeat(count);
       } else {
         this.loadingDots = '';
       }
     }, 500);
   }
 
-  startSearchInstant() {
-    this.typedText = this.searchTerm;
-    this.typedResponse = this.responseMessage;
-  }
-
   onBoxClick() {
-    if (!this.showParts && !this.showDescriptionTyping) {
+    if (!this.showDescriptionTyping && !this.showParts) {
       this.showTyping = false;
-      this.startPartFlow();
+      this.showDescriptionTyping = true;
+      this.fetchCurrentPart();
     }
   }
 
-  startPartFlow() {
+  private fetchCurrentPart() {
     const part = this.pcParts[this.partIndex];
-    if (!part) return;
-
     this.currentPart = part.name;
-    this.showDescriptionTyping = true;
-    this.showParts = false;
-    this.descriptionDone = false;
-    this.backendDone = false;
-
-    this.showDescriptionInstant(part.description);
-    this.onPartClick(part);
-  }
-
-  showDescriptionInstant(text: string) {
-    this.typedDescription = text;
-    this.descriptionDone = true;
-    this.tryShowParts();
-  }
-
-  onPartClick(part: any): void {
-    if (this.awaitingResponse.has(part.name)) return;
-
+    this.typedDescription = part.description;
     this.awaitingResponse.add(part.name);
-    const payload = {
+
+    this.http.post('http://localhost:8000/api/pc-parts/', {
       query: this.searchTerm,
       component: this.backendKeys[part.name]
-    };
+    }).subscribe((response: any) => {
+      const backendKey = this.backendKeys[part.name] || part.name.toLowerCase();
+      let partResults =
+        response.components?.[backendKey] ||
+        response.components?.[part.name] ||
+        response.components?.[backendKey.toUpperCase()] ||
+        response.components?.['CPU Cooler'] ||
+        [];
 
-    const url = 'http://localhost:8000/api/pc-parts/';
-
-    this.http.post(url, payload).subscribe({
-      next: (response: any) => {
-        const backendKey = this.backendKeys[part.name] || part.name.toLowerCase();
-        let partResults =
-          response.components[backendKey] ||
-          response.components[part.name] ||
-          response.components[backendKey.toUpperCase()] ||
-          response.components['CPU Cooler'] ||
-          [];
-
-        if (!Array.isArray(partResults)) {
-          partResults = Object.values(partResults);
-        }
-
-        this.results[part.name] = partResults.slice(0, 2);
-        this.awaitingResponse.delete(part.name);
-        this.backendDone = true;
-        this.tryShowParts();
-      },
-      error: (error) => {
-        console.error('Error:', error);
-        this.awaitingResponse.delete(part.name);
-        this.backendDone = true;
-        this.tryShowParts();
+      if (!Array.isArray(partResults)) {
+        partResults = Object.values(partResults);
       }
+
+      console.log('🔧 Part:', part.name, '| Backend Key:', backendKey);
+      console.log('📦 Raw Response:', response);
+      console.log('✅ Results Stored:', partResults);
+
+      this.results[part.name] = partResults.slice(0, 2);
+      this.awaitingResponse.delete(part.name);
+      this.readyToSelect = true;
+    }, (error) => {
+      console.error('❌ Error fetching part:', part.name, error);
+      this.results[part.name] = [];
+      this.awaitingResponse.delete(part.name);
+      this.readyToSelect = true;
     });
   }
 
-  tryShowParts(): void {
-    if (this.backendDone && this.descriptionDone) {
-      // NO delay anymore
-      this.showDescriptionTyping = false;
-      this.showParts = true;
-    }
+  onSelectPartsClick() {
+    this.showDescriptionTyping = false;
+    this.showParts = true;
+    this.readyToSelect = false;
   }
 
-  selectPart(partName: string, selectedComponent: any): void {
-    this.selectedParts[partName] = selectedComponent;
-    console.log('✅ Selected part saved:', partName, selectedComponent);
-    console.log('📦 Current selections:', this.selectedParts);
-
-    const payload = {
+  selectPart(partName: string, item: any) {
+    this.selectedParts[partName] = item;
+    this.http.post('http://localhost:8000/api/selected-part/', {
       component: this.backendKeys[partName],
-      selectedComponent
-    };
-
-    const url = 'http://localhost:8000/api/selected-part/';
-
-    this.http.post(url, payload).subscribe({
-      next: (res) => {
-        console.log('Selected sent to backend:', res);
-        this.advanceToNextPart();
-      },
-      error: (err) => {
-        console.error('Selection error:', err);
-        this.advanceToNextPart();
-      }
-    });
+      selectedComponent: item
+    }).subscribe(
+      () => this.advanceToNextPart(),
+      () => this.advanceToNextPart()
+    );
   }
 
-  advanceToNextPart() {
+  private advanceToNextPart() {
     this.partIndex++;
     if (this.partIndex < this.pcParts.length) {
-      setTimeout(() => this.startPartFlow(), 500);
+      setTimeout(() => {
+        this.showDescriptionTyping = true;
+        this.showParts = false;
+        this.fetchCurrentPart();
+      }, 500);
     } else {
-      console.log('🎉 Build complete! Final selections:', this.selectedParts);
       this.showParts = false;
       this.showSummary = true;
       this.buildAmazonCartLink();
     }
   }
 
-  buildAmazonCartLink() {
-    let cartLink = 'https://www.amazon.com/gp/aws/cart/add.html?';
-
-    let index = 1;
-    for (const partName in this.selectedParts) {
-      const part = this.selectedParts[partName];
-      if (part && part.asin) {
-        cartLink += `ASIN.${index}=${part.asin}&Quantity.${index}=1&`;
-        index++;
+  private buildAmazonCartLink() {
+    let link = 'https://www.amazon.com/gp/aws/cart/add.html?';
+    let idx = 1;
+    for (const name in this.selectedParts) {
+      const p = this.selectedParts[name];
+      if (p?.asin) {
+        link += `ASIN.${idx}=${p.asin}&Quantity.${idx}=1&`;
+        idx++;
       }
     }
-
-    this.amazonCartLink = cartLink.slice(0, -1);
-  }
-
-  getSpinnerVisibility(): boolean {
-    return this.awaitingResponse.size > 0;
+    this.amazonCartLink = link.slice(0, -1);
   }
 }
