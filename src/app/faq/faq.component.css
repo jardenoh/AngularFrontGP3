@@ -1,220 +1,187 @@
 :host {
-    display: block;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  
-  /* FAQ PAGE BASE */
-  .faq-page-container {
-    width: 100%;
-    padding: 60px 40px;
-    display: flex;
-    flex-direction: column;
-    color: white;
-  }
-  
-  /* Main Header */
-  .faq-header {
-    font-size: 50px;
-    margin-bottom: 10px;
-    color: #faa500;
-    text-align: center;
-  }
-  
-  /* Subheader */
-  .faq-subheader {
-    font-size: 20px;
-    color: white;
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  /* How It Works Flip Cards */
-  .how-it-works-section {
-    margin-bottom: 60px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .card-container {
-    display: flex;
-    gap: 80px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .card {
-    width: 350px;
-    height: 250px;
-    perspective: 1200px;
-    background-color: transparent;
-  }
-  
-  .card-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.8s;
-  }
-  
-  .card:hover .card-inner {
-    transform: rotateY(180deg);
-  }
-  
-  .first-content, .second-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 2px solid #faa500;
-    border-radius: 12px;
-    backface-visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    color: #faa500;
-    text-align: center;
-    padding: 20px;
-    font-size: 22px;
-    box-sizing: border-box;
-  }
-  
-  .second-content {
-    background-color: #faa500;
-    color: black;
-    transform: rotateY(180deg);
-  }
-  
-  /* Build PC Button Container */
-  .build-pc-button-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-  
-  /* Build PC Button */
-  .build-pc-button {
-    color: #faa500;
-    font-size: 24px;
-    font-family: 'Poppins', sans-serif;
-    background: none;
-    border: none;
-    cursor: pointer;
-    position: relative;
-    text-align: center;
-    padding: 10px 20px;
-  }
-  
-  .build-pc-button::before,
-  .build-pc-button::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #faa500;
-    transform: scaleX(0);
-    transition: transform 0.5s ease-in-out;
-  }
-  
-  .build-pc-button::before {
-    top: 0;
-    transform-origin: left;
-  }
-  
-  .build-pc-button::after {
-    bottom: 0;
-    transform-origin: right;
-  }
-  
-  .build-pc-button:hover::before {
-    transform: scaleX(1);
-    transform-origin: right;
-  }
-  
-  .build-pc-button:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-  
-  /* Glowing Dividers */
-  .glow-divider {
-    width: 500px;
-    height: 4px;
-    background-color: #faa500;
-    margin: 60px auto;
-    box-shadow: 0 0 10px #faa500, 0 0 20px #faa500, 0 0 30px #faa500;
-    border-radius: 2px;
-    animation: pulseGlow 2s infinite ease-in-out;
-  }
-  
-  .small-glow-divider {
-    width: 100%;
-    max-width: 900px;
-    height: 3px;
-    background-color: #faa500;
-    margin-top: 40px;
-    margin-bottom: 40px;
-    box-shadow: 0 0 10px #faa500, 0 0 20px #faa500, 0 0 30px #faa500;
-    border-radius: 2px;
-    animation: pulseGlow 2s infinite ease-in-out;
-  }
-  
-  /* Pulse Animation */
-  @keyframes pulseGlow {
-    0% {
-      box-shadow: 0 0 8px #faa500, 0 0 12px #faa500, 0 0 16px #faa500;
-    }
-    50% {
-      box-shadow: 0 0 16px #faa500, 0 0 24px #faa500, 0 0 32px #faa500;
-    }
-    100% {
-      box-shadow: 0 0 8px #faa500, 0 0 12px #faa500, 0 0 16px #faa500;
-    }
-  }
-  
-  /* FAQ Section */
-  .faq-level-header {
-    font-size: 32px;
-    margin: 40px 0 20px 60px;
-    color: #faa500;
-  }
-  
-  .faq-questions-section {
-    width: 100%;
-    max-width: 900px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 120px;
-  }
-  
-  .faq-item {
-    width: 100%;
-    margin-bottom: 25px;
-  }
-  
-  .faq-question {
-    background-color: #111;
-    padding: 20px;
-    font-size: 22px;
-    border: 2px solid #faa500;
-    border-radius: 10px;
-    cursor: pointer;
-    text-align: left;
-  }
-  
-  .faq-answer {
-    background-color: #222;
-    margin-top: 10px;
-    padding: 20px;
-    border-radius: 10px;
-    font-size: 20px;
-    text-align: left;
-  }
-  
+  display: block;
+}
+
+/* ===================== FAQ PAGE BASE ===================== */
+.faq-page-container {
+  width: 100%;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+/* ===================== MAIN HEADER ===================== */
+.faq-header {
+  font-size: 50px;
+  margin-bottom: 10px;
+  color: #faa500;
+  text-align: center;
+}
+
+/* ===================== SUBHEADER ===================== */
+.faq-subheader {
+  font-size: 20px;
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* ===================== HOW IT WORKS FLIP CARDS ===================== */
+.how-it-works-section {
+  margin-bottom: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.card-container {
+  display: flex;
+  gap: 80px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card {
+  width: 350px;
+  height: 250px;
+  perspective: 1200px;
+}
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+}
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+.first-content, .second-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #faa500;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  color: #faa500;
+  text-align: center;
+  padding: 20px;
+  font-size: 22px;
+  box-sizing: border-box;
+}
+.second-content {
+  background-color: #faa500;
+  color: black;
+  transform: rotateY(180deg);
+}
+
+/* ===================== BUILD PC BUTTON ===================== */
+.build-pc-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.build-pc-button {
+  color: #faa500;
+  font-size: 24px;
+  font-family: 'Poppins', sans-serif;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  padding: 10px 20px;
+}
+.build-pc-button::before,
+.build-pc-button::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #faa500;
+  transform: scaleX(0);
+  transition: transform 0.5s ease-in-out;
+}
+.build-pc-button::before {
+  top: 0;
+  transform-origin: left;
+}
+.build-pc-button::after {
+  bottom: 0;
+  transform-origin: right;
+}
+.build-pc-button:hover::before {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+.build-pc-button:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ===================== DIVIDERS ===================== */
+.glow-divider {
+  width: 500px;
+  height: 4px;
+  margin: 60px auto;
+  background-color: #faa500;
+  box-shadow: 0 0 10px #faa500, 0 0 20px #faa500, 0 0 30px #faa500;
+  border-radius: 2px;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+.small-glow-divider {
+  width: 100%;
+  max-width: 900px;
+  height: 3px;
+  margin: 40px auto;
+  background-color: #faa500;
+  box-shadow: 0 0 10px #faa500, 0 0 20px #faa500, 0 0 30px #faa500;
+  border-radius: 2px;
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* ===================== FAQ ITEMS ===================== */
+.faq-level-header {
+  font-size: 32px;
+  margin: 40px 0 20px 60px;
+  color: #faa500;
+}
+.faq-questions-section {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 120px;
+}
+.faq-item {
+  width: 100%;
+  margin-bottom: 25px;
+}
+.faq-question {
+  background-color: #111;
+  padding: 20px;
+  font-size: 22px;
+  border: 2px solid #faa500;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+}
+.faq-answer {
+  background-color: #222;
+  margin-top: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: left;
+}
+
+/* ===================== PULSE ANIMATION ===================== */
+@keyframes pulseGlow {
+  0%,100% { box-shadow: 0 0 8px #faa500, 0 0 12px #faa500, 0 0 16px #faa500; }
+  50%     { box-shadow: 0 0 16px #faa500, 0 0 24px #faa500, 0 0 32px #faa500; }
+}

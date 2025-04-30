@@ -1,67 +1,105 @@
 <div class="build-page">
   <div class="pc-parts">
 
-    <!-- Initial Typing -->
-    <div class="button-box" *ngIf="showTyping" (click)="onBoxClick()" [ngClass]="{ 'pulsing': getSpinnerVisibility() }">
-      <div class="typing-box"><span class="fade-text">{{ typedText }}</span></div>
-      <div class="typing-box response"><span class="fade-text">{{ typedResponse }}</span></div>
-
-      <!-- Searching for parts inside the box at the bottom -->
-      <div *ngIf="getSpinnerVisibility()" class="searching-text">
+    <!-- Initial Typing Box -->
+    <div
+      class="button-box"
+      *ngIf="showTyping"
+      (click)="onBoxClick()"
+      [ngClass]="{ 'pulsing': isLoading() || readyToSelect }"
+    >
+      <div class="typing-box">
+        <span class="fade-text">{{ typedText }}</span>
+      </div>
+      <div class="typing-box response">
+        <span class="fade-text">{{ typedResponse }}</span>
+      </div>
+      <div *ngIf="isLoading() || readyToSelect" class="searching-text">
         <span class="fade-text">Searching for parts{{ loadingDots }}</span>
       </div>
     </div>
 
-    <!-- Typing Description -->
-    <div class="button-box" *ngIf="showDescriptionTyping" [ngClass]="{ 'pulsing': getSpinnerVisibility() }">
-      <div class="typing-box"><span class="fade-text">{{ typedDescription }}</span></div>
-
-      <!-- Searching for parts inside the box at the bottom -->
-      <div *ngIf="getSpinnerVisibility()" class="searching-text">
+    <!-- Description Typing Box -->
+    <div
+      class="button-box"
+      *ngIf="!showTyping && showDescriptionTyping"
+      [ngClass]="{ 'pulsing': isLoading() || readyToSelect }"
+    >
+      <div class="typing-box">
+        <span class="fade-text">{{ typedDescription }}</span>
+      </div>
+      <div *ngIf="isLoading() || readyToSelect" class="searching-text">
         <span class="fade-text">Searching for parts{{ loadingDots }}</span>
       </div>
     </div>
 
-    <!-- Part Options (Recommended Parts Section) -->
-    <div class="recommended-wrapper" *ngIf="showParts && results[currentPart]">
+    <!-- Select Parts Button -->
+    <div class="select-wrapper">
+      <button
+        class="select-parts-button"
+        (click)="onSelectPartsClick()"
+        [style.visibility]="(!showTyping && readyToSelect) ? 'visible' : 'hidden'"
+      >
+        Select parts
+      </button>
+    </div>
+
+    <!-- RECOMMENDED PARTS -->
+    <div *ngIf="showParts" class="recommended-wrapper">
       <div class="recommended-block">
         <h2>Recommended {{ currentPart }}s</h2>
         <p class="subtext">Please choose a {{ currentPart }} and click to continue</p>
-        <div class="part-row">
-          <div class="part-card" *ngFor="let item of results[currentPart]" (click)="selectPart(currentPart, item)">
-            <div *ngFor="let field of displayFields[currentPart]">
-              <strong>{{ field }}:</strong> {{ item[field] }}
-            </div>
-          </div>
+      </div>
+
+      <div class="part-row">
+        <div
+          class="part-card"
+          *ngFor="let item of results[currentPart] || []"
+          (click)="selectPart(currentPart, item)"
+        >
+          <h3>{{ item.name || 'Unnamed Part' }}</h3>
+          <p><strong>Price:</strong> {{ item.price !== undefined ? ('$' + item.price) : 'N/A' }}</p>
+          <p><em>{{ item.reasoning || 'No reasoning provided.' }}</em></p>
         </div>
       </div>
     </div>
 
-    <!-- Final Summary -->
+    <!-- FINAL SUMMARY -->
     <div class="part-container" *ngIf="showSummary">
       <div class="part-section">
-        <h2>Your Completed Build</h2>
-        <div class="summary-row">
-          <div class="part-card" *ngFor="let part of pcParts">
+        <h2 style="margin-bottom: 40px;">Your Completed Build</h2>
+      </div>
+
+      <div class="summary-row">
+        <div class="part-card" *ngFor="let part of pcParts">
+          <div *ngIf="selectedParts[part.name]">
+            <h3>{{ selectedParts[part.name].name || part.name }}</h3>
+            <p><strong>Price:</strong> {{ selectedParts[part.name].price !== undefined ? ('$' + selectedParts[part.name].price) : 'N/A' }}</p>
+            <p><em>{{ selectedParts[part.name].reasoning || 'No reasoning provided.' }}</em></p>
+          </div>
+          <div *ngIf="!selectedParts[part.name]">
             <h3>{{ part.name }}</h3>
-            <div *ngIf="selectedParts[part.name]">
-              <div *ngFor="let field of displayFields[part.name]">
-                <strong>{{ field }}:</strong> {{ selectedParts[part.name][field] }}
-              </div>
-            </div>
-            <div *ngIf="!selectedParts[part.name]">
-              <em>No selection</em>
-            </div>
+            <em>No selection</em>
           </div>
         </div>
-
-        <!-- Add All to Cart Button (Centered) -->
-        <a [href]="amazonCartLink" target="_blank">
-          <button style="margin-top: 20px; background-color: #FFA500; color: white; padding: 10px 20px; font-size: 1.2rem; border: none; border-radius: 5px; cursor: pointer;">
-            Add All to Amazon Cart
-          </button>
-        </a>
       </div>
+
+      <a [href]="amazonCartLink" target="_blank">
+        <button
+          style="
+            margin-top: 20px;
+            background-color: #FFA500;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          "
+        >
+          Add All to Amazon Cart
+        </button>
+      </a>
     </div>
 
   </div>

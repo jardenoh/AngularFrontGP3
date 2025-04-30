@@ -1,35 +1,37 @@
 <!-- INTRO SCREEN -->
 <div class="intro-screen" *ngIf="showIntro">
-  <div class="intro-line" [ngClass]="{ visible: currentLine === 1 }">Giving you the best tech...</div>
-  <div class="intro-line" [ngClass]="{ visible: currentLine === 2 }">With the latest tech.</div>
+  <div class="intro-line" [ngClass]="{ visible: currentLine === 1 }">
+    Giving you the best tech...
+  </div>
+  <div class="intro-line" [ngClass]="{ visible: currentLine === 2 }">
+    With the latest tech.
+  </div>
 </div>
 
 <!-- MAIN CONTENT -->
-<div id="scale-wrapper" *ngIf="!showIntro">
-  <div class="main-container">
-    <div class="intro-animation-wrapper">
-
-      <div class="left-middle">
-        <div class="left-content">
-          <p class="intro-subline">
-            Optimal PC is your go-to PC parts recommendation tool! Simply enter
-            what you’ll use your PC for—gaming, streaming, editing, or
-            work—and our custom AI search will recommend a tailor-made list of
-            the best components for your needs and budget.
-          </p>
-          <button class="how-it-works-button" (click)="scrollToFAQ()">How it works / FAQ</button>
-        </div>
+<div *ngIf="!showIntro" class="main-container">
+  <div class="intro-animation-wrapper">
+    <div class="left-middle">
+      <div class="left-content">
+        <p class="intro-subline">
+          Optimal PC is your go-to PC parts recommendation tool! Simply enter
+          what you’ll use your PC for—gaming, streaming, editing, or
+          work—and our custom AI search will recommend a tailor-made list of
+          the best components for your needs and budget.
+        </p>
+        <button class="how-it-works-button" (click)="scrollToFAQ()">
+          How it works / FAQ
+        </button>
       </div>
+    </div>
 
-      <div class="center-vertical-line"></div>
+    <div class="center-vertical-line"></div>
 
-      <div class="right-middle">
-        <img src="assets/pcparts.png" alt="PC Parts" class="static-image" />
-        <div class="searchbar-wrapper">
-          <app-searchbar></app-searchbar>
-        </div>
+    <div class="right-middle">
+      <img src="assets/pcparts.png" alt="PC Parts" class="static-image" />
+      <div class="searchbar-wrapper">
+        <app-searchbar></app-searchbar>
       </div>
-
     </div>
   </div>
 </div>
